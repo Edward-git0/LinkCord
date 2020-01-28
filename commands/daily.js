@@ -3,6 +3,8 @@ module.exports = {
     description: "get your daily linkcoins",
     category: "economy",
     execute(message, args, Discord, db) {
+        message.channel.send('hi')
+        
    const daily = new Discord.RichEmbed()
    .setTitle("Daily")
    .setDescription("You just collected your daily `$150` LinkCoins! ")
