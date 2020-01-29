@@ -1,5 +1,5 @@
 module.exports = {
-    name: "Boxing",
+    name: "boxing",
     description: "Who will win the boxing match?",
     category: "fun",
     execute(message, args) {
