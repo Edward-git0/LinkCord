@@ -1,0 +1,30 @@
+{
+  "name": "linkcord",
+  "version": "1.0.0",
+  "description": "LinkCord discord bot ",
+  "main": "bot.js",
+  "dependencies": {
+    "better-sqlite-pool": "^0.2.3",
+    "d.js-command-handler": "^1.4.5",
+    "discord.js": "^11.5.1",
+    "enmap": "^5.2.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thetechguy61705/LinkCord.git"
+  },
+  "keywords": [
+    "Discord",
+    "Bot"
+  ],
+  "author": "thetechguy61705, Edward, Codeiiz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thetechguy61705/LinkCord/issues"
+  },
+  "homepage": "https://github.com/thetechguy61705/LinkCord#readme"
+}
