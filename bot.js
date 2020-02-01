@@ -6,7 +6,7 @@ const Enmap = require('enmap');
 
 //initalize the client
 const bot = new Discord.Client();
-
+bot.login(config.token);
 
 function newEnmap(name) {
 	return new Enmap({
@@ -14,7 +14,7 @@ function newEnmap(name) {
 		fetchAll: true,
 		cloneLevel: 'deep', 
 		autoFetch: true, 
-		polling: 10000
+		polling: true
 	});
 };
 
@@ -64,4 +64,4 @@ bot.on('message', (message) => {
 });
 
 
-handler(__dirname + './commands', bot, { customPrefix: config.prefix } );
+handler(__dirname + '/commands', bot, { customPrefix: config.prefix } );
