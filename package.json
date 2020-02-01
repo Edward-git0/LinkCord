@@ -9,7 +9,9 @@
     "discord.js": "^11.5.1",
     "enmap": "^5.2.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  },
   "scripts": {
     "test": "node bot.js"
   },
@@ -18,7 +20,9 @@
     "url": "git+https://github.com/thetechguy61705/LinkCord.git"
   },
   "nodemonConfig": {
-    "ignore": ["./data"]
+    "ignore": [
+      "./data"
+    ]
   },
   "keywords": [
     "Discord",
@@ -31,4 +35,3 @@
   },
   "homepage": "https://github.com/thetechguy61705/LinkCord#readme"
 }
-
