@@ -5,6 +5,5 @@ module.exports = {
     channels: 'guild/dm/any',
     exec: (call) => {
         //code goes here
-        });
     }
 };
