@@ -27,7 +27,7 @@ client.on('ready', () => {
 	client.user.setActivity(`For @${client.user.tag}`, { type: 'WATCHING'} );
 	console.log('I have set the status.')
 	console.log('I am now going to initialize the databases');
-	client.economyData = newEnmap('economyData');
+	client.econData = newEnmap('economyData');
 	console.log(`The economyData database has been started.`);
 	client.cooldownData = newEnmap('cooldownData');
 	console.log('The cooldownData database has been started and is listening at localhost:8080');
@@ -38,7 +38,7 @@ client.on('ready', () => {
 });
 
 client.on('message', (message) => {
-	client.economyData.ensure(`${message.author.id}-${message.guild.id}`, {
+	client.econData.ensure(`${message.author.id}-${message.guild.id}`, {
 		userID: message.author.id, 
 		linkCoins: 500, 
 		purchases: [], 
