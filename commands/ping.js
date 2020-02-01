@@ -8,7 +8,7 @@ module.exports = {
         call.message.channel.send(`Ping? Give me a second!`).then(msg => {
             const embed = new Discord.RichEmbed()
             .setTitle(`Ping Statitics`)
-            .setDescription(`:ping_pong: My ping is ${Math.round(call.client.ping)}`)
+            .setDescription(`:ping_pong: My ping is ${Math.round(call.client.ping)}ms`)
             .setFooter(`You ran this command on Linkcord.`)
             msg.edit(embed);
         });
