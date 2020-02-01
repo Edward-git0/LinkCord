@@ -17,6 +17,9 @@
     "type": "git",
     "url": "git+https://github.com/thetechguy61705/LinkCord.git"
   },
+  "nodemonConfig": {
+    "ignore": ["./data"]
+  },
   "keywords": [
     "Discord",
     "Bot"
@@ -28,3 +31,4 @@
   },
   "homepage": "https://github.com/thetechguy61705/LinkCord#readme"
 }
+
