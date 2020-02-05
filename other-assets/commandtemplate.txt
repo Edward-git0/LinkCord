@@ -4,6 +4,11 @@ module.exports = {
     aliases: ['alias array'],
     channels: 'guild/dm/any',
     exec: (call) => {
+        try {
         //code goes here
+        } catch(error) {
+            call.message.channel.send(`Oops! That was an error! The issue has been reported to the adminstration team`);
+            console.log(error);
+        }
     }
 };
