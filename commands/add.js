@@ -5,8 +5,6 @@ module.exports = {
     channels: 'guild',
     exec: (call) => {
 		try {
-			
-		
 		if(call.message.member.roles.find(r => r.name === "Event Host") || call.message.member.roles.find(r => r.name = 'Administrator')) {
 		let target = call.message.mentions.users.first()
 		if(!target) return call.message.channel.send(`Mention a user!`)
@@ -29,7 +27,8 @@ module.exports = {
 		call.message.channel.send(`You can't run this command!`)
 	}
 } catch (error) {
-			call.message.channel.send(`Oops! That was an error! This issue has been reported to the adminstration team.`)	
+			call.message.channel.send(`Oops! That was an error! This issue has been reported to the adminstration team.`)
+			console.log(error)	
 }
 	}
 };
