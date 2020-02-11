@@ -5,7 +5,7 @@ module.exports = {
     channels: 'guild',
     exec: (call) => {
 		try {
-		if(call.message.member.roles.find(r => r.name === "Event Host") || call.message.member.roles.find(r => r.name = 'Administrator')) {
+		if(call.client.systemData.get(call.message.author.id, 'grantEconAdmin') === false) return;
 		let target = call.message.mentions.users.first()
 		if(!target) return call.message.channel.send(`Mention a user!`)
 		let prevBal = call.client.econData.get(`${target.id}-${call.message.guild.id}`, 'linkCoins');
@@ -22,10 +22,6 @@ module.exports = {
 			.setTimestamp();
 			msg.edit(embed)
 		});
-	}
-	else {
-		call.message.channel.send(`You can't run this command!`)
-	}
 } catch (error) {
 			call.message.channel.send(`Oops! That was an error! This issue has been reported to the adminstration team.`)
 			console.log(error)	
