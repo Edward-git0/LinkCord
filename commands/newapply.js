@@ -26,7 +26,20 @@ module.exports = {
         const question3String = `**Question 3:** What do you think you bring to the staff team?`
         const question4String = `**Question 4:** Which position are you applying for? \n*Available options: Community manager, moderator`
         const question5CommunityString = `**Question 5C:** How friendly are you on a daily basis?`
-        const question6CommunityString = `**Question 6C:**`
+        const question6CommunityString = `**Question 6C:** How do you handle stressful situations?`
+        const question7CommunityString = `**Question 7C:** How many activities would you be able to arrange for our community?`
+        const question8CommunityString = `**Question 8C:** Are you generally a toxic person?`
+        const question9CommunityString = `**Question 9C:** Why do you think your a good choice to represent our server?`
+        const question10CommunityString = `**Question 10C:** How active do you think you are on a scale of 1-10?`
+        const question5ModString = `**Question 5M:** How would you handle rule enforcement in the server?`
+        const question6ModString = `**Question 6M:** If your best friend commited a violation of the server rules, would you show bias towards the actions you take on them?`
+        const question7ModString = `**Question 7M:** How do you handle stressful situations?`
+        const question8ModString = `**Question 8M:** How would you use command sense to pick right from wrong?`
+        //place seperator here
+        const question9ModSituational = `**Question 9MS:** Edward just posted porn in chat, and his friend Anne is encouraging other people to do the same. How would you react in this situation?`
+        const question10ModSituational = `**Question 10MS:** Edward and thetechguy61705 are fighting in chat and its filling up the entire chat. What would be the actions you would take to handle this situation?`
+        const question11ModSituational = `**Question 11MS:** DudeCord is claiming that Cudiiz sent a malicious link in DMs. What should you do in this situation?`
+        const question12ModSituational = `**Question 12MS:** Two staff members are fighting. How should you react? What actions should you take?`
 
 
         const usersDMs = call.message.author.createDM();
@@ -43,12 +56,21 @@ module.exports = {
         //End Legal Agreement prompt;;
 
         // Question 1 
-        await call.prompt(`**Question 1:** How old are you?`, { time: 30000, channel: usersDMs}).then(question1Msg => {
+        await call.prompt(question1String, { time: 30000, channel: usersDMs}).then(question1Msg => {
           question1Answer = question1Msg.content;
         });
         //Question 1 end;
 
-        await call.prompt(``)
+        //question 2;;
+        await call.prompt(question2String, { time: 30000, channel: usersDMs}).then(question2Msg => {
+          question2Answer = question2Msg.content;
+        });
+        //question 2 end;;
+
+        await call.prompt(question3String, { time: 30000, channel: usersDMs}).then(question3Msg => {
+          //to be continued 
+        });
+        
 
 
 
