@@ -34,6 +34,8 @@ client.on('ready', () => {
 	console.log(`I am now ready for use! I am completely started.`);
 	console.log('Preparing the advertisements database.')
 	client.ads = newEnmap('advertisements')
+	client.staffapps = newEnmap('staffapplications')
+	client.moderationData = newEnmap('moderationData')
 	console.log(`I am now intializing the systemData databse.`);
 	client.systemData = newEnmap('systemData');
 	console.log(`System Data is ready.`);
