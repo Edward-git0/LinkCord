@@ -14,10 +14,29 @@ module.exports = {
         let question4Answer
         let question5Answer;
         let question6Answer;
+        let question7Answer;
+        let question8Answer;
+        let question9Answer;
+        let question10Answer;
 
+      //Generate application ID
+        function randomString(length) {
+    let chars = [], output = '';
+    for (let i = 32; i < 12; i ++) {
+        chars.push(String.fromCharCode(i));
+    }
+    for (let i = 0; i < length; i ++) {
+        output += chars[Math.floor(Math.random() * chars.length )];
+    }
+    return output;
+}
+
+//Set it to the variable
+let applicationID = output;
         
 		call.message.channel.send(`Welcome to the staff application! Please open your DM's so the prompt can continue.`)
 		let usersDMs = await call.message.author.createDM();
+
 		await call.prompt(`Are you ready to begin the staff application?`, { time: 12000, channel: usersDMs, filter: ['yes', 'no']}).then(msg => {
 			if(msg.content === 'yes') {
                 msg.reply('Great!');
@@ -31,17 +50,31 @@ module.exports = {
                                         question3Answer = msg5.content
                                         call.prompt(`**Question 4:** What do you think you will bring as a person to our staff team?`, { time: 25000, channel: usersDMs}).then(msg6 => {
                                           question4Answer = msg6.content
-                                          call.message.author.send(`**The next 3 questions will deal with situational awareness.`)
+                                          call.message.author.send(`**The next 5 questions will deal with situational awareness.`)
                                           call.prompt(`**Question 5:** Edward is spamming in the chat. He also has his friend Cudiiz encouraging spamming and breaking the rules. How would you deal with both of them? \n*Somes situations may require no action*`, { time: 30000, channel: usersDMs}).then(msg7 => {
                                             question5Answer = msg7.content;
                                             call.prompt(`**Question 6:** Edward is talking in chat normally with his friend DudeCord. How would you handle this situation. \n*Somes situations may require no action*`, { time: 30000, channel: usersDMs}).then(msg8 => {
-                                              
-                                            })
-                                          })
-                                        })
-                                    })
-                                })
-                        })
+                                              question6Answer = msg8.content;
+                                              call.prompt(`**Question 7:** Edward and Anne are fighting in chat. What would you do to calm down the situation?`, { time: 30000, channel: usersDMs}).then(msg9 => {
+                                                question7Answer = msg9.content;
+                                                call.prompt(`**Question 8:** DudeCord posted an erotic image of one of his friends in the general chat. What should you do? \n*Note: Some questions may require no action.*`, { time: 30000, channel: usersDMs}).then(msg10 => {
+                                                  question8Answer = msg10.content;
+                                                  call.prompt(`**Question 9:** Techward is spamming emojis and text in the chat. What moderation action should be taken? \n*Note: Some questions might require no action.*`, { time: 30000, channel: usersDMs}).then(msg11 => {
+                                                    question9Answer = msg11.content;
+                                                    call.prompt(`**Question 10:** Anne is spamming in chat, even after her mute expired. What action should you take to make sure she will stop?`, {time: 30000, channel: usersDms}).then(msg12 => {
+                                                      question10Answer = msg12.content;
+                                                      call.message.author.send(`Congrats! You have finished the application. I will now submit the application`)
+                                                      call.message.author.send(`📡 Submitting your application`)
+                                                    });
+                                                  });
+                                                });
+                                              });
+                                            });
+                                          });
+                                        });
+                                    });
+                                });
+                        });
                     }
                     if(msg.content === 'no') {
                         call.message.author.send(`Canceling prompt: You didn't agree to the terms and conditions`);
