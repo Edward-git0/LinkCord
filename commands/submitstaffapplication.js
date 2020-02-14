@@ -19,21 +19,6 @@ module.exports = {
         let question9Answer;
         let question10Answer;
 
-      //Generate application ID
-        function randomString(length) {
-    let chars = [], output = '';
-    for (let i = 32; i < 12; i ++) {
-        chars.push(String.fromCharCode(i));
-    }
-    for (let i = 0; i < length; i ++) {
-        output += chars[Math.floor(Math.random() * chars.length )];
-    }
-    return output;
-}
-
-//Set it to the variable
-let applicationID = output;
-        
 		call.message.channel.send(`Welcome to the staff application! Please open your DM's so the prompt can continue.`)
 		let usersDMs = await call.message.author.createDM();
 
