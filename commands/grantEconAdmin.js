@@ -8,7 +8,7 @@ module.exports = {
 		let target = call.message.mentions.users.first();
 		if(!target) return call.message.channel.send(`Mention A user`)
 		call.message.channel.send(`Working on it.`).then(msg => {
-			call.client.systemData.set(target.id, true, 'grantEconadmin')
+			call.client.systemData.set(target.id, true, 'grantEconAdmin')
 			msg.edit('Done.')
 		});
         } catch(error) {
