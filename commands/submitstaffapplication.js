@@ -28,7 +28,14 @@ module.exports = {
                                 call.prompt(`**Question 2:** What is your timezone?`, { time: 15000, channel: usersDMs}).then(msg4 => {
                                     question2Answer = msg4.content
                                     call.prompt(`**Question 3:** How old are you? \n*Please note: The minimium age requirement of Discord is 13 years of age, as such we will not be taking applicants under 13 years of age as per Discord's ToS*`, { time: 25000, channel: usersDMs}).then(msg5 => {
-                                        question3Answer = msg5;
+                                        question3Answer = msg5.content
+                                        call.prompt(`**Question 4:** What do you think you will bring as a person to our staff team?`, { time: 25000, channel: usersDMs}).then(msg6 => {
+                                          question4Answer = msg6.content
+                                          call.message.author.send(`**The next 3 questions will deal with situational awareness.`)
+                                          call.prompt(`**Question 5:** Edward is spamming in the chat. He also has his friend Cudiiz encouraging spamming and breaking the rules. How would you deal with both of them?`, { time: 30000, channel: usersDMs}).then(msg7 => {
+                                            question5Answer = msg7.content;
+                                          })
+                                        })
                                     })
                                 })
                         })
