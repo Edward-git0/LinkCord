@@ -29,10 +29,26 @@ module.exports = {
 
        await call.prompt(`Hello! Are you ready to begin your application to become LinkCord staff?`, { time: 30000, channel: usersDMs, filter: ['yes', 'no']}).then(initialQuestion => {
          if(initialQuestion.content.toLowerCase() === 'no') {
+           //If they aren't read, then cancel the prompt. 
            call.message.author.send(`OK. Cancelling prompt.`)
            return;
          } else {
-           call.prompt(`Before we begin, please read and accept the following agreement. \nI, **${call.message.author.tag}**, agree that filling out this application in no way, will grant me a position at LinkCord or any of its affiliate(s) unless I am accepted as a member of the staff by a verified member of Administration. \nI, ${call.message.author.tag} also agree that if I am declined for a position at LinkCord or any of its affiliate(s), that it is the finald decision of the administration member if you are accepted or not.`)
+
+           //Legal agreement prompt;;
+
+
+           await call.prompt(`Before we begin, please read and accept the following agreement. \nI, **${call.message.author.tag}**, agree that filling out this application in no way, will grant me a position at LinkCord or any of its affiliate(s) unless I am accepted as a member of the staff by a verified member of Administration. \nI, ${call.message.author.tag} also agree that the decision of the status of your application is **final** and cannot be changed unless proof of unfair judgement is provided. \n\nDo you agree to these terms?`, { time: 45000, channel: usersDMs, filter: ['yes', 'no']}).then(legalAgreementMsg => {
+             if(legalAgreementMsg.content.toLowerCase() === 'no') return;
+           });
+        //End Legal Agreement prompt;;
+
+        // Question 1 
+        await call.prompt(`**Question 1:** How old are you?`, { time: 30000, channel: usersDMs}).then(question1Msg => {
+          question1Answer 
+        });
+
+
+
          }
        });
 
