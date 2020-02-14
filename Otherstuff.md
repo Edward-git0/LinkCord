@@ -8,3 +8,7 @@ X just posted porn
 Y and Z are fighting and it’s filing up mainchat
 J is claiming H just send a malicious link in dms
 You have a problem with a fellow staff member, how do you handle it
+
+
+
+appication channel id 677649993968123947
