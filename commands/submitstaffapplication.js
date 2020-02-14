@@ -32,8 +32,11 @@ module.exports = {
                                         call.prompt(`**Question 4:** What do you think you will bring as a person to our staff team?`, { time: 25000, channel: usersDMs}).then(msg6 => {
                                           question4Answer = msg6.content
                                           call.message.author.send(`**The next 3 questions will deal with situational awareness.`)
-                                          call.prompt(`**Question 5:** Edward is spamming in the chat. He also has his friend Cudiiz encouraging spamming and breaking the rules. How would you deal with both of them?`, { time: 30000, channel: usersDMs}).then(msg7 => {
+                                          call.prompt(`**Question 5:** Edward is spamming in the chat. He also has his friend Cudiiz encouraging spamming and breaking the rules. How would you deal with both of them? \n*Somes situations may require no action*`, { time: 30000, channel: usersDMs}).then(msg7 => {
                                             question5Answer = msg7.content;
+                                            call.prompt(`**Question 6:** Edward is talking in chat normally with his friend DudeCord. How would you handle this situation. \n*Somes situations may require no action*`, { time: 30000, channel: usersDMs}).then(msg8 => {
+                                              
+                                            })
                                           })
                                         })
                                     })
