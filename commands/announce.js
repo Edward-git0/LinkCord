@@ -36,6 +36,7 @@ module.exports = {
 				{ time: 25000 }).then((msg) => {
 				embedBody = msg.content;
 			});
+			call.message.channel.bulkDelete(8)
 			if(mention === 'everyone') channel.send(call.message.guild.defaultRole.toString());
 			if(mention === 'here') channel.send('@here');
 			const finalizedEmbed = new Discord.RichEmbed()
@@ -44,7 +45,6 @@ module.exports = {
 				.setTimestamp()
 				.setColor('BLURPLE')
 				.setFooter(`Announced by ${call.message.author.tag}`);
-			call.message.channel.bulkDelete(8)
 			channel.send(finalizedEmbed);
 			call.message.channel.send(`I've sent the announcement with the details you entered! Prompt has now ended.`).then(msg3 => {
 				setTimeout(() => {
