@@ -14,7 +14,7 @@ module.exports = {
         .setTitle(`Your title will go here`)
         .setDescription(`Your embed body will go here.`)
         .setFooter(`Your name will go here`)
-				.setImage('attachment://other-assets/B8EA4B6D-0A5C-42BE-9394-9DD69F02260C.jpeg')
+				.setImage('attachment://other-assets/Example-embed.jpeg')
 
         if(!advertisementApprovalChat) {
           log.send(`${call.message.guild.defaultRole.toString()} I am warning you: ${call.message.author.tag} tried to run the advertisement command, but the ads approval channel was deleted. Fix it in the code`)
