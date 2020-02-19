@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const randomize = require('randomatic');
 module.exports = {
     id: 'ad',
     aliases: ['postad', 'advertisement'],
@@ -13,9 +14,10 @@ module.exports = {
         .setTitle(`Your title will go here`)
         .setDescription(`Your embed body will go here.`)
         .setFooter(`Your name will go here`)
+				.setImage('attachment://other-assets/B8EA4B6D-0A5C-42BE-9394-9DD69F02260C.jpeg')
 
         if(!advertisementApprovalChat) {
-          log.send(`${call.message.guild.defaultRole.toString()} I am warning you: ${call.message.author.tag} tried to run the advertisement command, but the ads channel was deleted. Fix it in the code`)
+          log.send(`${call.message.guild.defaultRole.toString()} I am warning you: ${call.message.author.tag} tried to run the advertisement command, but the ads approval channel was deleted. Fix it in the code`)
           call.message.channel.send(`Something went wrong! The adminstration has been notified and will fix it shortly.`)
         }
        const initialMessage = await call.message.channel.send(`Hello! The advertisement prompt will continue in your DMs.`)
@@ -30,6 +32,27 @@ module.exports = {
         const title = titlePrompt.content;
         const body = embedBodyPrompt.content;
         const imageURL = collectImagePrompt.attachments.first().url
+
+				const approvalPrompt = new Discord.RichEmbed()
+				.setTitle(`${call.messgae.author.tag} submitted an advertisement..`)
+				.setDescription(`**Title:** ${title} \n\n**Body:** ${body} \n\n The image is attached to this embed.`)
+				.setFooter(`You can approve or deny this with the ?approve [id] or ?deny [id] [reason]`)
+				.setImage(imageURL);
+
+				advertisementApprovalChat.send(approvalPrompt);
+				//save to the database
+        const adID = randomize(`A0`, 6);
+
+				call.client.ads.set(`${adID}-${call.message.author.id}`, {
+					adID: adID
+					advertisementGuildID: call.message.guild.id, 
+					dateSubmitted: Date.now()
+					applyingUserID: call.message.author.id, 
+					embedTitle: title,
+					embedBody: body,
+					embedImage: imageURL
+				})
+
 
 
         initialPrompt.edit(`Prompt Finished.`)
