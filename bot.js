@@ -33,6 +33,7 @@ client.on('ready', () => {
 	console.log('The cooldownData database has been started');
 	console.log(`I am now ready for use! I am completely started.`);
 	console.log('Preparing the advertisements database.')
+	client.guildData = newEnmap('guildData')
 	client.ads = newEnmap('advertisements')
 	client.staffapps = newEnmap('staffapplications')
 	client.moderationData = newEnmap('moderationData')
@@ -65,6 +66,12 @@ client.on('message', (message) => {
 			grantEdwardIsADuck: false, 
 			grantDevCodeAccess: false, 
 			grantCodeExportAccess: false
+		});
+		client.guildData.ensure(message.guild.id, {
+			lastcase: 0,
+			cases: [],
+			playing: false,
+			queue: []
 		});
 	}
 });
