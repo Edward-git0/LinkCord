@@ -9,6 +9,11 @@ module.exports = {
         const advertisementApprovalChat = call.client.channels.get(`659844354025979914`)
         const log = call.client.channels.get(`659149534894489639`)
 
+        const exampleEmbed = new Discord.RichEmbed()
+        .setTitle(`Your title will go here`)
+        .setDescription(`Your embed body will go here.`)
+        .setFooter(`Your name will go here`)
+
         if(!advertisementApprovalChat) {
           log.send(`${call.message.guild.defaultRole.toString()} I am warning you: ${call.message.author.tag} tried to run the advertisement command, but the ads channel was deleted. Fix it in the code`)
           call.message.channel.send(`Something went wrong! The adminstration has been notified and will fix it shortly.`)
@@ -26,7 +31,8 @@ module.exports = {
         const body = embedBodyPrompt.content;
         const imageURL = collectImagePrompt.attachments.first().url
 
-        initialPrompt.edit(`Prompt Finished. `)
+
+        initialPrompt.edit(`Prompt Finished.`)
 
 
 
