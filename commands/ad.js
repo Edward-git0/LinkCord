@@ -36,7 +36,7 @@ module.exports = {
 				const approvalPrompt = new Discord.RichEmbed()
 				.setTitle(`${call.messgae.author.tag} submitted an advertisement..`)
 				.setDescription(`**Title:** ${title} \n\n**Body:** ${body} \n\n The image is attached to this embed.`)
-				.setFooter(`You can approve or deny this with the ?approve [id] or ?deny [id] [reason]`)
+				.setFooter(`You can approve or deny this with the ?approvead [id] or ?denyad [id] [reason]`)
 				.setImage(imageURL);
 
 				advertisementApprovalChat.send(approvalPrompt);
@@ -45,6 +45,7 @@ module.exports = {
 
 				call.client.ads.set(`${adID}-${call.message.author.id}`, {
 					adID: adID
+					status: 'waiting'
 					advertisementGuildID: call.message.guild.id, 
 					dateSubmitted: Date.now()
 					applyingUserID: call.message.author.id, 
