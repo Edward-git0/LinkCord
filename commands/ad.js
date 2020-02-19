@@ -22,6 +22,10 @@ module.exports = {
 
         const collectImagePrompt = await call.prompt(`Please send an image attachment of the image you would like on your advertisement.`, { time: 60000, channel: usersDMs })
 
+        const title = titlePrompt.content;
+        const body = embedBodyPrompt.content;
+        const imageURL = collectImagePrompt.attachments.first().url
+
 
         } catch(error) {
             call.message.channel.send(`Oops! That was an error! The issue has been reported to the adminstration team`);
