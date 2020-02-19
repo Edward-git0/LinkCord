@@ -7,7 +7,8 @@
     "better-sqlite-pool": "^0.2.3",
     "d.js-command-handler": "^1.4.5",
     "discord.js": "^11.5.1",
-    "enmap": "^5.2.4"
+    "enmap": "^5.2.4",
+    "randomatic": "^3.1.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0"
