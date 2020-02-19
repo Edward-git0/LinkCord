@@ -19,6 +19,8 @@ module.exports = {
             let question8Answer;
             let question9Answer;
             let question10Answer;
+						let question11Answer;
+						let queston12Answer;
 
             //Questions
             const question1String = `**Question 1:** How old are you?`
@@ -139,9 +141,40 @@ module.exports = {
                 .addField(question10CommunityString, question10Answer)
                 .setFooter(`LinkCord applications: This user passed Discord's safety check.`);
                 applicationApprovalChannel.send(embed)
-                msg.edit(`Your application *(${appID})* has successfully been submitted! :) \nA member of Adminstration will be in touch about the status of your application.`)
+                msg.edit(`Your application *(${appID})* has successfully been submitted!  \nA member of Adminstration will be in touch about the status of your application.`)
               });
-            }
+            } else if(positionChoice.toLowerCase() === 'moderator') {
+							const question5m = await call.prompt(question5ModString, {
+								time: 60000, 
+								channel: usersDMs
+							})
+
+							question5Answer = question5m.content;
+
+							const question6m = await call.prompt(question6ModString, {
+								time: 60000, 
+								channel: usersDMs
+							})
+							question6Answer = question6m.content;
+
+							const question7m = await call.prompt(question7ModString, {
+								time: 60000,
+								channel: usersDMs
+							})
+							question7Answer = question7m.content;
+
+							const question8m = await call.prompt(question8ModString, {
+								time: 60000, 
+								channel: usersDMs
+							})
+							question8Answer = question8m.content;
+
+							const question9ms = call.prompt(question9ModSituational, {
+								time: 60000,
+								channel: usersDMs
+							})
+							question9Answer = question9ms.content;
+						}
 
 
 
