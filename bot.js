@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const fs = require('fs');
 const handler = require('d.js-command-handler');
 const config = require('./config.js');
 const Enmap = require('enmap');
@@ -48,8 +49,7 @@ client.on('message', (message) => {
 		client.econData.ensure(`${message.author.id}-${message.guild.id}`, {
 			userID: message.author.id, 
 			linkCoins: 500, 
-			purchases: [], 
-			activityMeter: 0
+			purchases: [],
 		})
 		client.cooldownData.ensure(`${message.author.id}-${message.guild.id}`, {
 			userID: message.author.id, 
@@ -76,6 +76,21 @@ client.on('message', (message) => {
 		});
 	}
 });
-
+// This loop reads the clientEventsevents folder and attaches each event file properly 
+fs.readdir("./clientEvents/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    // ignore everything that is not precious javascript
+    if (!file.endsWith(".js")) return;
+    // Load the file
+    const event = require(`./events/${file}`);
+    // Get just the event name
+    let eventName = file.split(".")[0];
+    // this means each event will be called with the client argument,
+    // followed by its "normal" arguments, like message, member, etc etc.
+    client.on(eventName, event.bind(null, client));
+    delete require.cache[require.resolve(`./events/${file}`)];
+  });
+});
 
 handler(__dirname + '/commands', client, { customPrefix: config.prefix } );

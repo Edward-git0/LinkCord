@@ -25,6 +25,8 @@ module.exports = {
 			const roleIDPrompt = await call.prompt(`What is the ID of the role the bot should add when they purchase it?`)
 			let itemRoleID = roleIDPrompt.content;
 
+			const shouldSellPrompt = await call.prompt(`Should this item be available right away?`)
+
 			call.message.channel.send(`Saving to the database..`)
 			call.client.shopData.set(call.message.guild.id, {
 				guildID: call.message.guild.id,
