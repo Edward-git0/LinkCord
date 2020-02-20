@@ -19,8 +19,8 @@ module.exports = {
             let question8Answer;
             let question9Answer;
             let question10Answer;
-						let question11Answer;
-						let queston12Answer;
+			let question11Answer;
+            let question12Answer;
 
             //Questions
             const question1String = `**Question 1:** How old are you?`
@@ -36,7 +36,7 @@ module.exports = {
             const question5ModString = `**Question 5M:** How would you handle rule enforcement in the server?`
             const question6ModString = `**Question 6M:** If your best friend commited a violation of the server rules, would you show bias towards the actions you take on them?`
             const question7ModString = `**Question 7M:** How do you handle stressful situations?`
-            const question8ModString = `**Question 8M:** How would you use command sense to pick right from wrong?`
+            const question8ModString = `**Question 8M:** How would you use common sense to pick right from wrong?`
             //place seperator here
             const question9ModSituational = `**Question 9MS:** Edward just posted porn in chat, and his friend Anne is encouraging other people to do the same. How would you react in this situation?`
             const question10ModSituational = `**Question 10MS:** Edward and thetechguy61705 are fighting in chat and its filling up the entire chat. What would be the actions you would take to handle this situation?`
@@ -169,11 +169,52 @@ module.exports = {
 							})
 							question8Answer = question8m.content;
 
-							const question9ms = call.prompt(question9ModSituational, {
+							const question9ms = await call.prompt(question9ModSituational, {
 								time: 60000,
 								channel: usersDMs
 							})
-							question9Answer = question9ms.content;
+                            question9Answer = question9ms.content;
+                            
+                            const question10ms = await call.prompt(question10ModSituational, {
+                                time: 60000, 
+                                channel: usersDMs
+                            })
+                            question10Answer = question10ms.content;
+
+                            const question11ms = await call.prompt(question11ModSituational, {
+                                time: 60000, 
+                                channel: usersDMs
+                            })
+                            question11Answer = question11ms.content;
+
+                            const question12ms = await call.prompt(question12ModSituational, {
+                                time: 60000, 
+                                channel: usersDMs
+                            });
+                            question12Answer = question12ms.content;
+                            
+
+                            call.message.author.send(`📡 Submitting your application`).then(finshedAppMsg => {
+                                const appID = randomize(`A0`, 6);
+                                const embed = new RichEmbed()
+                                .setTitle(`${appID}: ${call.message.author.tag} (*${call.message.author.id}*) has submitted an application for ${positionChoice}`)
+                                .addField(question1String, question1Answer)
+                                .addField(question2String, question2Answer)
+                                .addField(question3String, question3Answer)
+                                .addField(question5ModString, question5Answer)
+                                .addField(question6ModString, question6Answer)
+                                .addField(question7ModString, question7Answer)
+                                .addField(question8ModString, question8Answer)
+                                .addField(question9ModSituational, question9Answer)
+                                .addField(question10ModSituational, question10Answer)
+                                .addField(question11ModSituational, question11Answer)
+                                .addField(question12ModSituational, question12Answer)
+                                .setFooter(`LinkCord applications: This user passed Discord's safety check.`);
+                                applicationApprovalChannel.send(embed)
+                                finshedAppMsg.edit(`Successfully submitted your application! A member of adminstration will be in touch about the status.`)
+                            });
+                            
+
 						}
 
 
