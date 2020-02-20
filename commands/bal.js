@@ -5,7 +5,8 @@ module.exports = {
     channels: 'guild',
     exec: (call) => {
         try {
-			let user = call.message.author
+			let user = call.message.author || call.message.mentions.users.first()
+			console.log(user.id)
 			let usersBalance = call.client.econData.get(`${user.id}-${call.message.guild.id}`, 'linkCoins')
 			const embed = new Discord.RichEmbed()
 			.setTitle(`Your LinkCoin Balance`)
