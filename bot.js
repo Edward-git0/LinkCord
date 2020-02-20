@@ -77,20 +77,20 @@ client.on('message', (message) => {
 	}
 });
 // This loop reads the clientEventsevents folder and attaches each event file properly 
-fs.readdir("./clientEvents/", (err, files) => {
-  if (err) return console.error(err);
-  files.forEach(file => {
-    // ignore everything that is not precious javascript
-    if (!file.endsWith(".js")) return;
-    // Load the file
-    const event = require(`./events/${file}`);
-    // Get just the event name
-    let eventName = file.split(".")[0];
-    // this means each event will be called with the client argument,
-    // followed by its "normal" arguments, like message, member, etc etc.
-    client.on(eventName, event.bind(null, client));
-    delete require.cache[require.resolve(`./events/${file}`)];
-  });
-});
+// fs.readdir("./clientEvents/", (err, files) => {
+//   if (err) return console.error(err);
+//   files.forEach(file => {
+//     // ignore everything that is not precious javascript
+//     if (!file.endsWith(".js")) return;
+//     // Load the file
+//     const event = require(`./events/${file}`);
+//     // Get just the event name
+//     let eventName = file.split(".")[0];
+//     // this means each event will be called with the client argument,
+//     // followed by its "normal" arguments, like message, member, etc etc.
+//     client.on(eventName, event.bind(null, client));
+//     delete require.cache[require.resolve(`./events/${file}`)];
+//   });
+// });
 
 handler(__dirname + '/commands', client, { customPrefix: config.prefix } );
