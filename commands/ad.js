@@ -22,7 +22,9 @@ module.exports = {
         }
        const initialMessage = await call.message.channel.send(`Hello! The advertisement prompt will continue in your DMs.`)
 
-        const usersDMs = await call.message.author.createDM().catch(error => return call.message.channel.send(`I couldn't open a DM, check if your DM's are open.`))
+        const usersDMs = await call.message.author.createDM().catch(error => {
+          call.message.channel.send(`I couldn't send the DM. Please check the openness of your DMs`)
+        });
         const titlePrompt = await call.prompt(`What would you like the title for your advertisement to be?`, { time: 60000, channel: usersDMs })
         initialMessage.edit(`Prompt in progress`)
         const embedBodyPrompt = await call.prompt(`What would you like the body of your embed to be?`, { time: 50000, channel: usersDMs })
@@ -31,32 +33,33 @@ module.exports = {
 
         const title = titlePrompt.content;
         const body = embedBodyPrompt.content;
-        const imageURL = collectImagePrompt.attachments.first().url
+        const imageURL = collectImagePrompt.attachments.first().url || collectImagePrompt.content;
 
 				const approvalPrompt = new Discord.RichEmbed()
-				.setTitle(`${call.messgae.author.tag} submitted an advertisement..`)
+				.setTitle(`${call.message.author.tag} submitted an advertisement..`)
 				.setDescription(`**Title:** ${title} \n\n**Body:** ${body} \n\n The image is attached to this embed.`)
 				.setFooter(`You can approve or deny this with the ?approvead [id] or ?denyad [id] [reason]`)
 				.setImage(imageURL);
 
 				advertisementApprovalChat.send(approvalPrompt);
-				//save to the database
+        //save to the database
         const adID = randomize(`A0`, 6);
 
 				call.client.ads.set(`${adID}-${call.message.author.id}`, {
-					adID: adID
-					status: 'waiting'
+					adID: adID,
+					status: 'waiting',
 					advertisementGuildID: call.message.guild.id, 
-					dateSubmitted: Date.now()
+					dateSubmitted: Date.now(),
 					applyingUserID: call.message.author.id, 
 					embedTitle: title,
 					embedBody: body,
 					embedImage: imageURL
 				})
+        
+        call.message.author.send(`I've sent your advertisement! You will recieve a DM from me in 3-5 business days about the approval status of your ad. You can check that with \`?adstatus [id]\``)
 
 
-
-        initialPrompt.edit(`Prompt Finished.`)
+        initialMessage.edit(`Prompt Finished.`)
 
 
 
