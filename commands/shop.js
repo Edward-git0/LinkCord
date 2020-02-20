@@ -7,10 +7,7 @@ module.exports = {
         try {
 
             let filter = await call.client.shopData.filter(find => {
-                console.log(find)
-                console.log(find.guildID)
-                console.log(find.forSale)
-                find.guildID === call.message.guild.id && find.forSale === true
+                return find.guildID === call.message.guild.id && find.forSale === true
             });
             if(filter.size === 0) return call.message.channel.send(`There are no items for sale right now.`)
             let embedDesc = '';
