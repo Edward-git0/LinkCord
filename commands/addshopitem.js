@@ -25,15 +25,19 @@ module.exports = {
 			const roleIDPrompt = await call.prompt(`What is the ID of the role the bot should add when they purchase it?`)
 			let itemRoleID = roleIDPrompt.content;
 
+			const reactableEmojiPrompt = await call.prompt(`What emoji should the user react with to obtain this?`)
+			let itemEmoji = reactableEmojiPrompt.content;
+
 			const shouldSellPrompt = await call.prompt(`Should this item be available right away?`)
 
 			call.message.channel.send(`Saving to the database..`)
-			call.client.shopData.set(call.message.guild.id, {
+			call.client.shopData.set(`${itemName}-${call.message.guild.id}`, {
 				guildID: call.message.guild.id,
 				itemName: itemName, 
 				itemDesc: itemDesc, 
 				itemQuan: itemQuan, 
 				itemCost: itemCost,
+				itemReactable: itemEmoji,
 				forSale: true, 
 				actionToTake: 'addRole',
 				roleIDtoAdd: itemRoleID

@@ -11,9 +11,8 @@ module.exports = {
             });
             if(filter.size === 0) return call.message.channel.send(`There are no items for sale right now.`)
             let embedDesc = '';
-            console.log(filter)
                 filter.forEach(found => {
-                    embedDesc += `**__${found.itemName}__** \nDescription: ${found.itemDesc} \nCost: ${found.itemCost} \nQuantity: ${found.itemQuan} \n\n` 
+                    embedDesc += `${found.itemReactable}** __${found.itemName}__** \nDescription: ${found.itemDesc} \nCost: ${found.itemCost} \nQuantity: ${found.itemQuan} \n\n` 
                 })
             const linkCoin = call.client.emojis.get('670675326837194782');
             const shopEmbed = new Discord.RichEmbed()
