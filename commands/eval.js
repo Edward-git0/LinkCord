@@ -5,7 +5,12 @@ module.exports = {
 	desc: 'Allows the bot developer to execute JavaScript inside of Discord.',
 	exec: (call) => {
 		try {
-			if (call.message.author.id !== '300816697282002946') return;
+			let role = call.message.guild.roles.get('658837632066912276')
+
+			if(!call.message.member.roles.has(role.id)) return; 
+
+			if(call.message.author.id === '370258372211245068') 
+				return call.message.reply(`no anne`)
 			let codein = call.args.join(' ');
 
 			if (codein === 'message.author.send(bot.token)') return call.message.reply('no');
