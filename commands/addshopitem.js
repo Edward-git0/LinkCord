@@ -25,7 +25,7 @@ module.exports = {
 			const roleIDPrompt = await call.prompt(`What is the ID of the role the bot should add when they purchase it?`)
 			let itemRoleID = roleIDPrompt.content;
 
-			const reactableEmojiPrompt = await call.prompt(`What emoji should the user react with to obtain this?`)
+			const reactableEmojiPrompt = await call.prompt(`What emoji should the user react with to obtain this? \n**DO NOT USE A CUSTOM EMOJI, IT WILL BREAK THE SHOP COMMAND**`)
 			let itemEmoji = reactableEmojiPrompt.content;
 
 			const shouldSellPrompt = await call.prompt(`Should this item be available right away?`)
