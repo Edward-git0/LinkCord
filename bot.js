@@ -44,6 +44,7 @@ client.on('ready', () => {
 	console.log(`System Data is ready.`);
 });
 
+
 client.on('message', (message) => {
 	if(message.channel.type === 'text') {
 		client.econData.ensure(`${message.author.id}-${message.guild.id}`, {
