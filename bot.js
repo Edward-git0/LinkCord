@@ -37,7 +37,7 @@ client.on('ready', () => {
 	client.guildData = newEnmap('guildData')
 	client.shopData = newEnmap('shopData')
 	client.ads = newEnmap('advertisements')
-	client.staffapps = newEnmap('staffapplications')
+	client.apps = newEnmap('staffapplications')
 	client.moderationData = newEnmap('moderationData')
 	console.log(`I am now intializing the systemData databse.`);
 	client.systemData = newEnmap('systemData');
@@ -51,7 +51,7 @@ client.on('message', (message) => {
 			userID: message.author.id, 
 			linkCoins: 500, 
 			purchases: [],
-		})
+		});
 		client.cooldownData.ensure(`${message.author.id}-${message.guild.id}`, {
 			userID: message.author.id, 
 			activeCoolGuildID: message.guild.id,
