@@ -28,6 +28,7 @@ module.exports = {
 		call.client.guildData.set(call.message.guild.id, caseNum, 'lastcase');
 		call.client.moderationData.set(`${caseNum}-${call.message.guild.id}-${calledMember.user.id}`, {
 			userid: calledMember.id,
+			moderator: call.message.author.tag, 
 			guildid: call.message.guild.id,
 			caseid: caseNum,
 			punishmenttype: 'strike',
