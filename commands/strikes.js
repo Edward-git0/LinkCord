@@ -21,7 +21,7 @@ module.exports = {
 
 		let arr = found.map((strike) => `**Moderation Type:** ${strike.punishmenttype}\n` +
 			`**Punishment Reason:** ${strike.punishmentreason}\n` +
-			`**Punishment Expires:** ${moment(strike.expiry).format('MM/DD/YYYY hh:mm:ss')}\n` +
+			`**Punishment Expires:** ${moment(strike.expiry).format('MM/DD/YYYY hh:mm:ss')}\n` + `**Moderator:** ${strike.moderator} \n` +
 			`**Guild case ID:** ${strike.caseid} \n\n`);
 		let embed = new RichEmbed();
 		let strikes = arr.length;
