@@ -1,6 +1,6 @@
 {
   "name": "linkcord",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "LinkCord discord bot ",
   "main": "bot.js",
   "dependencies": {

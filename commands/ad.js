@@ -51,6 +51,7 @@ module.exports = {
 					advertisementGuildID: call.message.guild.id, 
 					dateSubmitted: Date.now(),
 					applyingUserID: call.message.author.id, 
+					applyingUserTag: call.message.author.tag,
 					embedTitle: title,
 					embedBody: body,
 					embedImage: imageURL
