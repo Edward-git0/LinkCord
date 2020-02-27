@@ -1,3 +1,6 @@
+//Made in part by gt_c 
+//Most additions from thetechguy61705
+
 const { Collection } = require('discord.js');
 
 function defaults(obj, objDef) {
