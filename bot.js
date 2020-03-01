@@ -26,6 +26,7 @@ client.on('ready', () => {
 	console.log('I am now going to initalize myself for use.');
 	console.log('Now trying to set the status of the bot.');
 	client.user.setActivity(`For @${client.user.tag}`, { type: 'WATCHING'} );
+	client.user.setStatus('dnd')
 	console.log('I have set the status.')
 	console.log('I am now going to initialize the databases');
 	client.econData = newEnmap('economyData');
@@ -37,7 +38,6 @@ client.on('ready', () => {
 	client.guildData = newEnmap('guildData')
 	client.shopData = newEnmap('shopData')
 	client.ads = newEnmap('advertisements')
-	client.apps = newEnmap('staffapplications')
 	client.moderationData = newEnmap('moderationData')
 	console.log(`I am now intializing the systemData databse.`);
 	client.systemData = newEnmap('systemData');
