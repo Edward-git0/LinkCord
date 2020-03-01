@@ -1,5 +1,5 @@
 module.exports = {
 	token: 'NjgyMDU3NDY5OTMzMjU2NzE0.XlXdiQ.K7DvVNS1izzVPp0jxab38rYOPDI',
-	prefix: '--',
+	prefix: '~',
 	extraPerms: ['443664778901061633', '300816697282002946', '314991012600610817', '338509501290250240']
 }
