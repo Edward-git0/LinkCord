@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 module.exports = {
-    id: 'addstatus',
+    id: 'adstatus',
     aliases: ['checkmyad', 'whereismyad', 'whatsthestatusofmyad'],
-		desc: 'Allows the user to check the status of their submitted advertisement'
+	desc: 'Allows the user to check the status of their submitted advertisement',
     channels: 'guild',
     exec: (call) => {
         try {
@@ -10,19 +10,23 @@ module.exports = {
 				let adToCheckID = call.args[0];
 				let searchResult;
 				
+				if(!adToCheckID)
+					return call.message.reply(`Please provide an advertisment ID. You were provided one when you submitted your advertisement`)
 				let role = call.message.guild.roles.get('658837632066912276')
 
 					if(call.message.member.roles.has(role.id)) {
-							searchResult = await call.client.ads.filter(found => {
-							found.adID === adToCheckID 
+							searchResult =  call.client.ads.find(found => {
+							return found.adID === adToCheckID 
 						});
 					}
 					if(!call.message.member.roles.has(role.id)) {
-							searchResult = await call.client.ads.filter(found => {
-							found.adID === adToCheckID && found.applyingUserID === call.message.author.id
+							searchResult =  call.client.ads.find(found => {
+							return found.adID === adToCheckID && found.applyingUserID === call.message.author.id
 						})
 					}
-				
+				console.log(searchResult)
+				if(searchResult.size === 0) 
+					return call.message.reply(`I couldn't find any advertisments with that ID. \nBefore seaching again, make sure you were the one who submitted the ad.`)
 				if(!searchResult)
 					return call.message.reply(`I couldn't find any advertisments with that ID. \nBefore seaching again, make sure you were the one who submitted the ad.`)
 				if(searchResult.status === 'approved') {
