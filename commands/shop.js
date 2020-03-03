@@ -1,11 +1,12 @@
 const Discord = require('discord.js');
+const ms = require('ms')
 module.exports = {
     id: 'shop',
     aliases: ['buythings', 'linkcoinshop', 'edward', 'store'],
     channels: 'guild',
     exec: async (call) => {
         try {
-
+            let usersDMs = await call.message.author.createDM();
             let filter = await call.client.shopData.filter(find => {
                 return find.guildID === call.message.guild.id & find.forSale === true
             });
@@ -67,13 +68,48 @@ module.exports = {
                         
                     });
                 }
-                if(collectedEmoji === '🖼️') {
+                else if(collectedEmoji === '🖼️') {
                     call.message.reply(`This item's forSale status changed while you were entering the prompt. You have not recieved the item, nor has the balance been deducted. \nThis item's status was \`open\`, but it is now \`store closed for public users. Please try again when the bot is public\` `)
                 }
-                if(collectedEmoji === '🛃') {
-                    call.message.reply(`This item's forSale status changed while you were entering the prompt. You have not recieved the item, nor has the balance been deducted. \nThis item's status was \`open\`, but it is now \`store closed for public users. Please try again when the bot is public\` `)
-                }
-            })
+                else if (collectedEmoji === '🛃') {
+                    call.message.reply(`Prompt will continue in your DM's`)
+                    
+                    call.prompt(`Please reply an **IMAGE ATTACHMENT** of the emoji you would like to have`, {
+                        time: ms('5m'),
+                        channel: usersDMs
+                    }).then(emoji => {
+
+                        call.prompt(`What should the name be? \nDue to Discord Limitations, the emoji name must be less than 32 characters`, {
+                            time: ms('5m'),
+                            channel: usersDMs
+                        }).then(name => {
+                            let emojiImage = emoji.attachments.first().url
+                            if(name.length > 32) {
+                                return call.message.author.send(`Prompt Cancelled. Please re-run the command with a nme less than 32 characters long.`)
+                            }
+
+                        let approvalEmebed = new Discord.RichEmbed()
+                            .setTitle(`${call.message.author.tag} wants to add an emoji with the name of ${name.content}`)
+                            .setImage(emojiImage)
+                            .setColor('BLURPLE')
+                            .setFooter(`approve with ${call.prefixUsed}approveemoji ${call.message.author.id} or ${call.prefixUsed}denyemoji ${call.message.author.id} [reason]`)
+                            .setTimestamp();
+                    call.client.tempData.set(call.message.author.id, {
+                        dataType: 'EMOJI-ENTRY',
+                        userName: call.message.author.tag, 
+                        userID: call.message.author.id, 
+                        imageURL: emojiImage,
+                        emojiName: name.content
+                    })
+                    call.client.channels.get('684183897063424014').send(approvalEmebed);
+                    call.message.author.send(`I've submitted your emojji for review. You will see a DM from me if it has been approved.`)
+                        });
+                    })
+
+
+                    
+                } 
+            });
             
 
 
