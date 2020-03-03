@@ -41,6 +41,7 @@ client.on('ready', () => {
 	client.moderationData = newEnmap('moderationData')
 	console.log(`I am now intializing the systemData databse.`);
 	client.systemData = newEnmap('systemData');
+	client.tempData = newEnmap('tempData')
 	console.log(`System Data is ready.`);
 });
 
