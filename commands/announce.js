@@ -6,7 +6,7 @@ module.exports = {
 		//Arrays for proper choices
 		const promptOptions2 = ['everyone', 'none', 'here'];
 
-		if(!call.message.member.hasPermission('KICK_MEMBERS')) return;
+		if(!call.message.member.hasPermission('BAN_MEMBERS')) return;
 
 		try {
 			let embedTitle;
