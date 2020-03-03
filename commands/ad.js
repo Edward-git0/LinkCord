@@ -1,11 +1,28 @@
 const Discord = require('discord.js');
 const randomize = require('randomatic');
+const ms = require('ms');
 module.exports = {
     id: 'ad',
     aliases: ['postad', 'advertisement'],
     channels: 'guild',
     exec: async (call) => {
         try {
+						let checkIfAd = call.client.ads.find(search => {
+							return search.applyingUserID === call.message.author.id
+						});
+
+						if(checkIfAd) {
+							if(checkIfAd.dateSubmitted + ms('1d') > Date.now()) {
+								call.client.ads.delete(`${checkIfAd.adID}-${call.message.author.id}`);
+							}
+
+							if(checkIfAd.dateSubmitted + ms('1d') < Date.now()) {
+								return call.message.reply(`You've submitted an advertisement within the last 24 hours. Please wait 24 hours before submitting another ad. `)
+							}
+						} else {
+							//do nothing
+						}
+						//NEED TO ADD CHECK FOR DATES -- CHECK IF AD IS MORE THAN 1 DAY OLD
 
             const advertisementApprovalChat = call.client.channels.get(`659844354025979914`)
             const log = call.client.channels.get(`659149534894489639`)
