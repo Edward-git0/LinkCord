@@ -4,6 +4,12 @@ module.exports = {
 	exec: async (call) => {
 		let calledMember = call.message.guild.members.get((call.args[0] || '').replace(/\D+/g, ''));
 
+		if(!call.message.member.roles.has(call.message.guild.roles.get('658837632066912276').id)) 
+			return;
+		
+		
+		if(call.message.author.id === '443664778901061633')
+			return call.message.reply('no code. ')
 		if (calledMember) {
 			let found = call.client.moderationData.filter((find) => find.userid === calledMember.user.id && find.guildid === call.message.guild.id);
 
