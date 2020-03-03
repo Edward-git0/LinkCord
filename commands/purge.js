@@ -6,9 +6,9 @@ module.exports = {
     exec: async (call) => {
         try {
 
-			let role = call.message.guild.roles.get('658837499325579264')
-
-			if(!call.message.member.roles.has(role.id)) return; 
+            if(!call.message.member.permissions.has('MANAGE_MESSAGES'))
+                return;
+            
             let toDelete = call.args[0]
 			if (!toDelete || isNaN(toDelete)) return call.message.channel.send("Please enter a **valid** amount of messages. :x:");
             if(toDelete > 100 || toDelete < 2) return call.message.reply(`Please pick a number from **2** to **100**`)
