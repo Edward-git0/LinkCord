@@ -14,7 +14,7 @@ module.exports = {
                 .setTitle(`Your title will go here`)
                 .setDescription(`Your embed body will go here.`)
                 .setFooter(`Your name will go here`)
-                .setImage('attachment://other-assets/Example-embed.jpeg')
+                .setImage('https://cdn.discordapp.com/attachments/663414650552975371/684169747952042065/Example-embed.jpeg')
             if (!advertisementApprovalChat) {
                 log.send(`${call.message.guild.defaultRole.toString()} I am warning you: ${call.message.author.tag} tried to run the advertisement command, but the ads approval channel was deleted. Fix it in the code`)
                 call.message.channel.send(`Something went wrong! The adminstration has been notified and will fix it shortly.`)
@@ -42,7 +42,7 @@ module.exports = {
 
             const title = titlePrompt.content;
             const body = embedBodyPrompt.content;
-            const imageURL = collectImagePrompt.attachments.first().url || collectImagePrompt.content;
+            let imageURL = collectImagePrompt.attachments.first().url
 
             const approvalPrompt = new Discord.RichEmbed()
                 .setTitle(`${call.message.author.tag} submitted an advertisement..`)
@@ -78,8 +78,8 @@ module.exports = {
 
 
         } catch (error) {
-            call.message.channel.send(`Oops! That was an error! The issue has been reported to the adminstration team`);
-            console.log(error);
+            call.message.reply(`Prompt cancelled. This may have something to do with you not sending a MessageAttachment. Try again by sending an attachment not a URL. `)
+            console.log(error)
         }
     }
 };
