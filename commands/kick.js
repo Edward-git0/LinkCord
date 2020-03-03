@@ -34,7 +34,7 @@ module.exports = {
 			.setDescription(`You were kicked from LinkCord for __${reason}__ `)
 			.setColor('RED')
 			.setTimestamp()
-			await calledMember.send(toDMEmbed).catch(error => {
+			await calledMember.send(toDMEmbed).catch(() => {
 				call.message.channel.send(`I failed to DM the user. The kick was still logged.`)
 			});
 		
