@@ -32,7 +32,7 @@ module.exports = {
 
 
         } catch (error) {
-            call.message.channel.send(`Oops! That was an error! This issue has been reported to the adminstration team.`)
+            call.message.channel.send(`💥 Something went wrong while this command was executing! It has been reported to the developer team and it will be fixed soon.`)
             console.log(error)
         }
     }
