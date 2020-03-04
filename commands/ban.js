@@ -21,8 +21,7 @@ module.exports = {
 		if (call.message.member.highestRole.comparePositionTo(calledMember.highestRole) < 0)
 			return call.message.channel.send('The user that you are trying to ban has a higher role than you.');
 
-		if (call.message.member.highestRole.comparePositionTo(call.message.guild.me.highestRole) < 0)
-			return call.message.channel.send('The user that you are trying to ban has a higher role than me.');
+		
 
 		if (!call.message.guild.member(calledMember).bannable)
 			return call.message.channel.send('I can\'t ban that person! Do I have a lower role then them? Do I have the Ban Members Permisison?');
