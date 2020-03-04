@@ -33,8 +33,12 @@ client.on('ready', () => {
 
 	//CHECK IF ADS ARE OLD, --> IF THEY ARE OLD, REMOVE THEM FROM THE DATABASE AND REMOVE THE COOLDOWN ON THE USER
 	client.setInterval(() => {
-		
-	}, ms('5m'));
+		client.ads.forEach(each => {
+			if(Date.now() > each.dateSubmitted + ms('6h')) {
+				client.ads.delete(`${each.adID}-${each.applyingUserID}`)
+			}
+		});
+	}, ms('10s'));
 	console.log(`I have logged in as ${client.user.tag}.`);
 	console.log('I am now going to initalize myself for use.');
 	console.log('Now trying to set the status of the bot.');
