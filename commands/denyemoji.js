@@ -30,7 +30,7 @@ module.exports = {
 			call.client.channels.get('659149534894489639').send(`**${call.message.author.tag}** denied an emoji for user *${searchForEmoji.userName}* for reason ${reason}`)
 			
 			call.client.tempData.delete(searchForEmoji.userID)
-
+			call.client.econData.math(`${searchForEmoji.userID}-${call.message.guild.id}`, '+', 5000, 'linkCoins')
 			call.client.users.get(searchForEmoji.userID).send(`Your emoji (${searchForEmoji.emojiName}) was denied for __${reason}__`)
 			call.message.react('👍')
         } catch(error) {
