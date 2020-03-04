@@ -72,6 +72,12 @@ module.exports = {
                     call.message.reply(`This item's forSale status changed while you were entering the prompt. You have not recieved the item, nor has the balance been deducted. \nThis item's status was \`open\`, but it is now \`store closed for public users. Please try again when the bot is public\` `)
                 }
                 else if (collectedEmoji === '🛃') {
+                    let searchForExistingCoolDown = call.client.tempData.find(search => {
+                        return search.userID === call.message.author.id && search.dataType === 'EMOJI-ENTRY'
+                    });
+                    
+                    if(searchForExistingCoolDown.cooldown === true)
+                        return call.message.reply(`You can only submit an emoji for use once every 30 days! \n*Please note: It could take up to 10 mins for a cooldown to refresh*`)
                     call.message.reply(`Prompt will continue in your DM's`)
                     
                     call.prompt(`Please reply an **IMAGE ATTACHMENT** of the emoji you would like to have`, {
@@ -96,6 +102,7 @@ module.exports = {
                             .setTimestamp();
                     call.client.tempData.set(call.message.author.id, {
                         dataType: 'EMOJI-ENTRY',
+                        cooldown: true,
                         userName: call.message.author.tag, 
                         userID: call.message.author.id, 
                         imageURL: emojiImage,
