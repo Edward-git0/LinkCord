@@ -3,6 +3,7 @@ const ms = require('ms');
 const moment = require('moment')
 module.exports = {
 	id: 'strike',
+	aliases: ['warn'],
 	desc: 'Warns a user based on their actions. Increases their strike count by 1.',
 	exec: async (call) => {
 		let log = call.client.channels.get('659149534894489639')
