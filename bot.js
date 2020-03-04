@@ -26,19 +26,21 @@ client.on('ready', () => {
 	//Status and Activities
 	client.user.setActivity(`Staff members ONLY`, { type: 'LISTENING'} );
 	client.user.setStatus('dnd')
+	client.log = client.channels.get('659149534894489639')
 	//End Status and activities
 
 	//Intervals for checking on cooldowns/timeouts. 
 	
-
 	//CHECK IF ADS ARE OLD, --> IF THEY ARE OLD, REMOVE THEM FROM THE DATABASE AND REMOVE THE COOLDOWN ON THE USER
 	client.setInterval(() => {
 		client.ads.forEach(each => {
 			if(Date.now() > each.dateSubmitted + ms('6h')) {
-				client.ads.delete(`${each.adID}-${each.applyingUserID}`)
+				client.ads.set(`${each.adID}-${each.applyingUserID}`, false, 'cooldown')
 			}
 		});
-	}, ms('10s'));
+	}, ms('5m'));
+
+	
 	console.log(`I have logged in as ${client.user.tag}.`);
 	console.log('I am now going to initalize myself for use.');
 	console.log('Now trying to set the status of the bot.');
@@ -105,7 +107,7 @@ fs.readdir("./clientEvents/", (err, files) => {
     // Get just the event name
     let eventName = file.split(".")[0];
     // this means each event will be called with the client argument,
-    // followed by its "normal" arguments, like message, member, etc etc.
+	// followed by its "normal" arguments, like message, member, etc etc.
     client.on(eventName, event.bind(null, client));
     delete require.cache[require.resolve(`./clientEvents/${file}`)];
   });
