@@ -64,7 +64,7 @@ module.exports = {
             const approvalPrompt = new Discord.RichEmbed()
                 .setTitle(`${call.message.author.tag} submitted an advertisement with an ID of ${adID}`)
                 .setDescription(`**Title:** ${title} \n\n**Body:** ${body} \n\n The image is attached to this embed.`)
-                .setFooter(`You can approve or deny this with the ?approvead [id] or ?denyad [id] [reason]`)
+                .setFooter(`You can approve or deny this with the ?approvead ${adID} or ?denyad ${adID} [reason]`)
                 .setColor('BLURPLE')
                 .setImage(imageURL);
 
