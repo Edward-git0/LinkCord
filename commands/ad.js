@@ -60,9 +60,9 @@ module.exports = {
             const title = titlePrompt.content;
             const body = embedBodyPrompt.content;
             let imageURL = collectImagePrompt.attachments.first().url
-
+            const adID = randomize(`A0`, 6);
             const approvalPrompt = new Discord.RichEmbed()
-                .setTitle(`${call.message.author.tag} submitted an advertisement..`)
+                .setTitle(`${call.message.author.tag} submitted an advertisement with an ID of ${adID}`)
                 .setDescription(`**Title:** ${title} \n\n**Body:** ${body} \n\n The image is attached to this embed.`)
                 .setFooter(`You can approve or deny this with the ?approvead [id] or ?denyad [id] [reason]`)
                 .setColor('BLURPLE')
@@ -70,7 +70,6 @@ module.exports = {
 
             advertisementApprovalChat.send(approvalPrompt);
             //save to the database
-            const adID = randomize(`A0`, 6);
 
             call.client.ads.set(`${adID}-${call.message.author.id}`, {
                 adID: adID,
