@@ -10,9 +10,9 @@ module.exports = {
 			if(!user) user = call.message.author
 			let usersBalance = call.client.econData.get(`${user.id}-${call.message.guild.id}`, 'linkCoins')
 			const embed = new Discord.RichEmbed()
-			.setTitle(`Your LinkCoin Balance`)
+			.setTitle(``)
 			.setDescription(`You currently have **${usersBalance}**<:linkcoin:670675326837194782> \n\nYou can visit the shop for rewards by running \`,shop\``)
-			.setImage(user.avatarURL)
+			.setThumbnail(user.avatarURL)
 			.setColor('BLURPLE')
 			call.message.channel.send(`⚒️ Please wait while I update your balance!`).then(msg => {
 				msg.edit(embed)
