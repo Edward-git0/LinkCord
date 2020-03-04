@@ -25,7 +25,7 @@ client.on('ready', () => {
 	console.log(`I have logged in as ${client.user.tag}.`);
 	console.log('I am now going to initalize myself for use.');
 	console.log('Now trying to set the status of the bot.');
-	client.user.setActivity(`For @${client.user.tag}`, { type: 'WATCHING'} );
+	client.user.setActivity(`Staff members ONLY`, { type: 'LISTENING'} );
 	client.user.setStatus('dnd')
 	console.log('I have set the status.')
 	console.log('I am now going to initialize the databases');
