@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const randomize = require('randomatic');
-const ms = require('ms');
 module.exports = {
     id: 'ad',
     aliases: ['postad', 'advertisement'],
@@ -10,9 +9,9 @@ module.exports = {
             
             let searchForPreviousAds = call.client.ads.find(search => {
                 return search.applyingUserID === call.message.author.id
-            })
+            });
 
-            if(searchForPreviousAds)
+            if(searchForPreviousAds.cooldown === true)
                 return call.message.reply(`You've already had an ad in the past 6 hours. \n*Please note: It could take up to 5 mins for cooldowns to refresh*`)
 
             const advertisementApprovalChat = call.client.channels.get(`659844354025979914`)
@@ -65,6 +64,7 @@ module.exports = {
             call.client.ads.set(`${adID}-${call.message.author.id}`, {
                 adID: adID,
                 status: 'waiting',
+                cooldown: true,
                 advertisementGuildID: call.message.guild.id,
                 dateSubmitted: Date.now(),
                 applyingUserID: call.message.author.id,
