@@ -3,6 +3,7 @@ const fs = require('fs');
 const handler = require('d.js-command-handler');
 const config = require('./config.js');
 const Enmap = require('enmap');
+const ms = require('ms')
 
 
 //initalize the client
@@ -22,11 +23,22 @@ function newEnmap(name) {
 //ready event
 
 client.on('ready', () => {
+	//Status and Activities
+	client.user.setActivity(`Staff members ONLY`, { type: 'LISTENING'} );
+	client.user.setStatus('dnd')
+	//End Status and activities
+
+	//Intervals for checking on cooldowns/timeouts. 
+	
+
+	//CHECK IF ADS ARE OLD, --> IF THEY ARE OLD, REMOVE THEM FROM THE DATABASE AND REMOVE THE COOLDOWN ON THE USER
+	client.setInterval(() => {
+		
+	}, ms('5m'));
 	console.log(`I have logged in as ${client.user.tag}.`);
 	console.log('I am now going to initalize myself for use.');
 	console.log('Now trying to set the status of the bot.');
-	client.user.setActivity(`Staff members ONLY`, { type: 'LISTENING'} );
-	client.user.setStatus('dnd')
+	
 	console.log('I have set the status.')
 	console.log('I am now going to initialize the databases');
 	client.econData = newEnmap('economyData');
