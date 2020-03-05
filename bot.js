@@ -24,7 +24,7 @@ function newEnmap(name) {
 
 client.on('ready', () => {
 	//Status and Activities
-	client.user.setActivity(`Staff members ONLY`, { type: 'LISTENING'} );
+	client.user.setActivity(`CODEWARD SLEEP`, { type: 'WATCHING'} );
 	client.user.setStatus('dnd')
 	client.log = client.channels.get('659149534894489639')
 	//End Status and activities
@@ -39,6 +39,7 @@ client.on('ready', () => {
 			}
 		});
 	}, ms('5m'));
+
 
 	
 	console.log(`I have logged in as ${client.user.tag}.`);
@@ -68,7 +69,8 @@ client.on('message', (message) => {
 	if(message.channel.type === 'text') {
 		client.econData.ensure(`${message.author.id}-${message.guild.id}`, {
 			userID: message.author.id, 
-			linkCoins: 500, 
+			linkCoins: 500,
+			lastDaily: "0",
 			purchases: [],
 		});
 		client.cooldownData.ensure(`${message.author.id}-${message.guild.id}`, {
