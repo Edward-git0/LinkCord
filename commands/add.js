@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 module.exports = {
     id: 'add',
+    category: 'developer',
+	enabled: true,
     aliases: ['baladd', 'balanceadd', 'configadduserbal'],
     channels: 'guild',
     exec: (call) => {
