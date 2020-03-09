@@ -2,6 +2,8 @@ const Discord = require('discord.js');
 const randomize = require('randomatic');
 module.exports = {
     id: 'ad',
+    category: 'public',
+	enabled: true,
     aliases: ['postad', 'advertisement'],
     channels: 'guild',
     exec: async (call) => {
