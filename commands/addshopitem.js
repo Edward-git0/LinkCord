@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 module.exports = {
-    id: 'addshopitem',
+	id: 'addshopitem',
+	category: 'developer',
+	enabled: true,
     aliases: [],
     channels: 'guild',
     exec: async (call) => {
