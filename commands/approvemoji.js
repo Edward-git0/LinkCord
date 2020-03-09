@@ -1,7 +1,9 @@
 const Discord = require('discord.js');
 module.exports = {
     id: 'approveemoji',
-    aliases: ['ae'],
+	aliases: ['ae'],
+	category: 'staff',
+	enabled: true,
     channels: 'guild',
     exec: (call) => {
         try {
