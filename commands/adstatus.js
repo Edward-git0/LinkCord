@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 module.exports = {
-    id: 'adstatus',
+	id: 'adstatus',
+	category: 'public',
+	enabled: true,
     aliases: ['checkmyad', 'whereismyad', 'whatsthestatusofmyad'],
 	desc: 'Allows the user to check the status of their submitted advertisement',
     channels: 'guild',
