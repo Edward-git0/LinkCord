@@ -4,6 +4,8 @@ const { RichEmbed } = require('discord.js');
 const randomize = require('randomatic');
 module.exports = {
     id: 'apply',
+    category: 'public',
+	enabled: false,
 	aliases: ['jointhestaff', 'applyforstaff'],
     channels: 'any',
     exec: async (call) => {
