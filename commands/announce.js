@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 module.exports = {
 	id: 'announce',
+	category: 'staff',
+	enabled: true,
 	desc: '[PROMPT] - Prompts you to make a Discord announcement.',
 	exec: async (call) => {
 		//Arrays for proper choices
