@@ -2,6 +2,9 @@ const Discord = require('discord.js');
 module.exports = {
     id: 'mute',
     aliases: ['m'],
+    category: 'staff',
+    enabled: true,
+    desc: 'Allows staff to mute users.',
     channels: 'guild',
     exec: async (call) => {
         try {
