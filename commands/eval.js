@@ -2,7 +2,10 @@
 const discord = require('discord.js');
 module.exports = {
 	id: 'eval',
+	category: 'developer',
+	enabled: true,
 	desc: 'Allows the bot developer to execute JavaScript inside of Discord.',
+	aliases: ['run', 'e', 'r'],
 	exec: (call) => {
 		try {
 			let role = call.message.guild.roles.get('658837632066912276')
