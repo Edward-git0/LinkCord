@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 module.exports = {
     id: 'purge',
+    category: 'staff',
+    desc: 'Allows staff to clean the channel up by deleting messages.',
+    enabled: true,
     aliases: ['deletemessages', 'bulkdelete'],
     channels: 'guild/dm/any',
     exec: async (call) => {
