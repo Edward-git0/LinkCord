@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 module.exports = {
-    id: 'bal',
+	id: 'bal',
+	category: 'public',
+	enabled: true,
+	desc: 'Allows you to check your LinkCoin balance',
     aliases: ['balance', 'checkbalance', 'money', 'bank', 'linkcoins'],
     channels: 'guild',
     exec: (call) => {
