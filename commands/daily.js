@@ -2,7 +2,10 @@ const Discord = require('discord.js');
 const ms = require('ms')
 const moment = require('moment')
 module.exports = {
-    id: 'daily',
+	id: 'daily',
+	category: 'public',
+	enabled: true,
+	desc: 'Allows you to collect your daily bonus available every 24 hours.',
     aliases: ['d', 'dailymoney', 'givememymoney'],
     channels: 'daily',
     exec: async (call) => {
@@ -11,7 +14,7 @@ module.exports = {
 			let linkCoin = call.client.emojis.get('670675326837194782')
 			let oldBalance = call.client.econData.get(key, 'linkCoins');
 			let cooldownExpire = call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'lastDaily')
-			if (cooldownExpire < cooldownExpire + ms('24h'))
+			if (Date.now() < cooldownExpire + ms('24h'))
 				return call.message.reply(`You've used the daily command within the last 24 hours. Please wait until **${moment(cooldownExpire + ms('24h')).format('MMMM Do YYYY, h:mm:ss a')}** before using the command again.`)
 			
 			let boomer = await call.message.channel.send(`Depositing your daily bonus.`)
@@ -25,7 +28,7 @@ module.exports = {
 			.setDescription(`🎉 **You received your 120 Daily${linkCoin}!** 🎉 \n\n**Your old balance was:** ${oldBalance}\n**Your new balance is:** ${newBalance}`)
 			.setColor('BLURPLE')
 			.setTimestamp();
-			call.message.channel.send(embed)
+			boomer.edit(embed)
 		} catch(error) {
             call.message.channel.send(`💥 Something went wrong while this command was executing! It has been reported to the developer team and it will be fixed soon.`);
             console.log(error);
