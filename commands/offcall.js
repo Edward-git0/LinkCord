@@ -3,6 +3,9 @@ const ms = require('ms')
 module.exports = {
     id: 'offcall',
     aliases: [],
+    category: 'staff',
+    desc: 'Allows staff to clock in and out.',
+	enabled: true,
     channels: 'guild',
     exec: async (call) => {
         try {
