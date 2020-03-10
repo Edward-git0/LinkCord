@@ -2,7 +2,9 @@ const ms = require('ms');
 const { RichEmbed } = require('discord.js');
 module.exports = {
 	id: 'ban',
-	desc: 'Allows the user to ban a user from  the current guild. Requires the Adminstrator Role.',
+	category: 'staff',
+	enabled: true,
+	desc: 'Allows the user to ban a user from the current guild. Requires you to have the Ban members permission.',
 	exec: async (call) => {
 		
 		if(!call.message.member.hasPermission('BAN_MEMBERS')) return call.message.reply(`You cannot ban people!`)
