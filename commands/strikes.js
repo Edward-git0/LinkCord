@@ -4,6 +4,8 @@ const moment = require('moment');
 
 module.exports = {
 	id: 'strikes',
+	category: 'staff',
+	enabled: true,
 	desc: 'Checks the list of things that the user has done. Things here are not more than 30 days old.',
 	exec: async (call) => {
 		if (!call.args[0])
