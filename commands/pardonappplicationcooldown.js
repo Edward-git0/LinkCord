@@ -2,6 +2,9 @@ const Discord = require('discord.js');
 module.exports = {
     id: 'pardonapplicationcooldown',
     aliases: ['pardonapp', 'apppardon'],
+    category: 'developer',
+    enabled: true,
+    desc: 'Allows administrators to pardon the application cooldown.',
     channels: 'any',
     exec: (call) => {
         try {
