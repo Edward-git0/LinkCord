@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 module.exports = {
     id: 'remove',
+    category: 'administrators',
+    desc: 'Allows admins to remove balance from a user.',
+    enabled: true,
     aliases: ['balrem', 'balanceremove', 'configadduserbalremove'],
     channels: 'guild',
     exec: (call) => {
