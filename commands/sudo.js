@@ -2,6 +2,8 @@ const { Message } = require('discord.js');
 
 module.exports = {
 	id: 'sudo',
+	category: 'developer',
+	enabled: true,
 	desc: 'Makes the bot think the user sent the message (with the content specified) to the current channel.',
 	exec: async (call) => {
 		
