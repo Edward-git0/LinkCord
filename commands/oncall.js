@@ -2,7 +2,10 @@ const Discord = require('discord.js');
 const ms = require('ms')
 module.exports = {
     id: 'oncall',
-    aliases: ['oc'],
+	aliases: ['oc'],
+	category: 'staff',
+	enabled: true,
+    desc: 'Allows staff to clock in and out.',
     channels: 'guild',
     exec: async (call) => {
         try {
