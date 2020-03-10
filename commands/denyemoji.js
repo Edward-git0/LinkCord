@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 module.exports = {
-    id: 'denyemoji',
+	id: 'denyemoji',
+	category: 'staff',
+	enabled: true,
+	desc: 'Allows staff to deny submitted emojis.',
     aliases: ['de'],
     channels: 'guild',
     exec: async (call) => {
