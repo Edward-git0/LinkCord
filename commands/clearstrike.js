@@ -1,6 +1,8 @@
 module.exports = {
 	id: 'clearstrike',
 	desc: 'Clears all strikes for the mentioned user.',
+	category: 'developer',
+	enabled: true,
 	exec: async (call) => {
 		let calledMember = call.message.guild.members.get((call.args[0] || '').replace(/\D+/g, ''));
 
