@@ -3,6 +3,9 @@ const Discord = require('discord.js');
 module.exports = {
     id: 'serverinfo',
     aliases: ['serverinfo'],
+    category: 'public',
+    desc: `Show's the current servers info.`,
+    enabled: true,
     channels: 'guild',
     exec: (call) => {
         try {
