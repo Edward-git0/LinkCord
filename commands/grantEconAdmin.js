@@ -2,6 +2,9 @@ module.exports = {
     id: 'grantEconAdmin',
     aliases: ['grantecoadmin', 'granteco'],
     channels: 'any',
+    category: 'staff',
+    enabled: true,
+    desc: 'Allows the developer to grant economy admin',
     exec: (call) => {
         try {
 		if(call.client.systemData.get(call.message.author.id, 'grantSuperPerms') === false) return;
