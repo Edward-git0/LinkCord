@@ -2,6 +2,8 @@ const ms = require('ms');
 const { RichEmbed } = require('discord.js');
 module.exports = {
 	id: 'kick',
+	category: 'staff',
+	enabled: true,
 	desc: 'Allows the user to kick a user from  the current guild. .',
 	exec: async (call) => {
 		
