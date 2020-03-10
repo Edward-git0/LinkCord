@@ -2,7 +2,10 @@ const Discord = require('discord.js');
 const moment = require('moment')
 module.exports = {
     id: 'userinfo',
-    aliases: ['ui'],
+	aliases: ['ui'],
+	category: 'public',
+	desc: 'Shows you the mentioned users information.',
+	enabled: true,
     channels: 'guild',
     exec: async (call) => {
         try {
