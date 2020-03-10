@@ -4,6 +4,9 @@ module.exports = {
     id: 'shop',
     aliases: ['buythings', 'linkcoinshop', 'edward', 'store'],
     channels: 'guild',
+    category: 'public',
+    enabled: true,
+    desc: '[PROMPT] Displays the LinkCord shop, where you can buy server upgrades',
     exec: async (call) => {
         try {
             let usersDMs = await call.message.author.createDM();
