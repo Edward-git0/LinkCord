@@ -1,6 +1,9 @@
 module.exports = {
     id: 'avatar',
     aliases: ['showavatar'],
+    desc: 'Shows you the mentioned users avatar.',
+    category: 'public',
+	enabled: true,
     channels: 'any',
     exec: (call) => {
         try {
