@@ -1,6 +1,9 @@
 module.exports = {
     id: 'denyecoadmin',
     aliases: ['denecoad', 'denyeco'],
+    desc: 'Allows the developer to allow users to edit users balances.',
+    category: 'developer',
+	enabled: true,
     channels: 'any',
     exec: (call) => {
         try {
