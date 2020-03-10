@@ -2,6 +2,9 @@ const Discord = require('discord.js');
 module.exports = {
     id: 'name',
     aliases: ['alias array'],
+    desc: 'No Description Provided',
+    category: 'public',
+    enabled: true, 
     channels: 'guild/dm/any',
     exec: (call) => {
         try {
