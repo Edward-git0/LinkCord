@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 module.exports = {
     id: 'ping',
+    category: 'public',
+    desc: 'Shows the ping for the bot.',
+    enabled: true,
     aliases: ['pong'], // defaults to []
     channels: 'any', // defaults to 'any'. options are: 'dm', 'guild', 'any'.
     // 'call' is an instance of the Call class, a class containing various properties and utility functions.
