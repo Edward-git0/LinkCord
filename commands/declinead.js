@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 module.exports = {
     id: 'declinead',
+    category: 'staff',
+    enabled: true,
+    desc: 'Allows staff to decline submitted advertisements',
     aliases: [],
     channels: 'guild',
     exec: (call) => {
