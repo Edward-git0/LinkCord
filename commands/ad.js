@@ -3,7 +3,8 @@ const randomize = require('randomatic');
 module.exports = {
     id: 'ad',
     category: 'public',
-	enabled: true,
+    enabled: true,
+    desc: 'Allows you to post an advertisement to our advertising channels after approval.',
     aliases: ['postad', 'advertisement'],
     channels: 'guild',
     exec: async (call) => {
