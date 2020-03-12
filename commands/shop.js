@@ -6,7 +6,7 @@ module.exports = {
     channels: 'guild',
     category: 'public',
     enabled: true,
-    desc: '[PROMPT] Displays the LinkCord shop, where you can buy server upgrades',
+    desc: '[PROMPT] Displays the LinkCord shop, where you can buy server upgrades.',
     exec: async (call) => {
         try {
             let usersDMs = await call.message.author.createDM();
@@ -52,7 +52,7 @@ module.exports = {
                     max: 1,
                     time: 180000
                 })
-                .then(collected => {
+                .then(async collected => {
                     let collectedEmoji = collected.first().emoji.name;
                     let userData = call.client.econData;
                     let shopData = call.client.shopData;
@@ -75,6 +75,30 @@ module.exports = {
                         });
                     } else if (collectedEmoji === '🖼️') {
                         call.message.reply(`This item's forSale status changed while you were entering the prompt. You have not recieved the item, nor has the balance been deducted. \nThis item's status was \`open\`, but it is now \`store closed for public users. Please try again when the bot is public\` `)
+                    } else if(collectedEmoji === '🙂') {
+                        if(call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins') < 300)
+                            return call.message.reply(`You cannot afford this item!`)
+                        
+                        let dmRecieptEmbed = new Discord.RichEmbed()
+                        .setTitle(`Your purchase of Custom Nickname`)
+                        .setDescription(`You just purchased \`Custom Nickname\` in LinkCord. \nKeep this message an a log of your purchase.`)
+                        .setFooter(`LinkCord Shop`, call.message.author.avatarURL);
+
+                        let name = await call.prompt('What would you like your nickname to be?', {
+                            time: ms('5m')
+                        });
+
+                        if(name.content.length > 32) {
+                            name = await call.prompt(`What would you like your nickname to be? \n**Please make sure it is less than 32 characters.**`, {
+                                time: ms('5m')
+                            })
+                        }
+
+                        call.message.member.setNickname(name.content, ['The user bought it from the LinkCord store.']).catch(err => {
+                            return call.message.reply('I was unable to change your name. Your 300 LinkCoins has been returned to you.')
+                        })
+
+                        call.message.reply(`I've updated your nickname for 300 LinkCoins! `)
                     } else if (collectedEmoji === '🛃') {
                         let searchForExistingCoolDown = call.client.tempData.find(search => {
                             return search.userID === call.message.author.id && search.dataType === 'EMOJI-ENTRY'
