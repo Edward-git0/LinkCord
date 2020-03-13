@@ -24,7 +24,7 @@ function newEnmap(name) {
 
 client.on('ready', () => {
 	//Status and Activities
-	client.user.setActivity(`CODEWARD SLEEP`, { type: 'WATCHING'} );
+	client.user.setActivity(`Edward Lurk`, { type: 'WATCHING'} );
 	client.user.setStatus('dnd')
 	client.log = client.channels.get('659149534894489639')
 	//End Status and activities
