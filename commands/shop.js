@@ -9,6 +9,7 @@ module.exports = {
     desc: '[PROMPT] Displays the LinkCord shop, where you can buy server upgrades.',
     exec: async (call) => {
         try {
+            let linkicon = call.client.emojis.get('660886312798257162');
             let usersDMs = await call.message.author.createDM();
             let filter = await call.client.shopData.filter(find => {
                 return find.guildID === call.message.guild.id & find.forSale === true
@@ -81,8 +82,10 @@ module.exports = {
                         
                         let dmRecieptEmbed = new Discord.RichEmbed()
                         .setTitle(`Your purchase of Custom Nickname`)
-                        .setDescription(`You just purchased \`Custom Nickname\` in LinkCord. \nKeep this message an a log of your purchase.`)
-                        .setFooter(`LinkCord Shop`, call.message.author.avatarURL);
+                        .setDescription(`Congrats! You just purchased \`Custom Nickname\` in LinkCord shop!`)
+                        .setFooter(`LinkCord Shop ~ Keep this message as a proof of purchase.`, call.message.author.avatarURL)
+                        .setColor('BLURPLE')
+                        .setTimestamp();
 
                         let name = await call.prompt('What would you like your nickname to be?', {
                             time: ms('5m')
@@ -94,11 +97,21 @@ module.exports = {
                             })
                         }
 
+                        call.client.econData.math(`${call.message.author.id}-${call.message.guild.id}`, '-', 300, 'linkCoins')
                         call.message.member.setNickname(name.content, ['The user bought it from the LinkCord store.']).catch(err => {
-                            return call.message.reply('I was unable to change your name. Your 300 LinkCoins has been returned to you.')
-                        })
+                            call.message.reply('I was unable to change your name. Your 300 LinkCoins has been returned to you.')
+                            call.client.econData.math(`${call.message.author.id}-${call.message.guild.id}`, '+', 300, 'linkCoins')
+                            return;
+                        });
+                        let tbhembed = new Discord.RichEmbed()
+                        .setTitle(`${linkicon} Thank you for your purchase of Custom Nickname! ${linkicon}`)
+                        .setDescription(`You just purchased a custom nickname from the LinkCord shop for 300 ${linkCoin} \nYour balance is now **${call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins')}** ${linkCoin}`)
+                        .setFooter(`Thanks for your purchase! ~ LinkCord Shop`)
+                        .setColor('BLURPLE')
+                        .setTimestamp();
 
-                        call.message.reply(`I've updated your nickname for 300 LinkCoins! `)
+                        call.message.channel.send(tbhembed)
+                        call.message.author.send(dmRecieptEmbed)
                     } else if (collectedEmoji === '🛃') {
                         let searchForExistingCoolDown = call.client.tempData.find(search => {
                             return search.userID === call.message.author.id && search.dataType === 'EMOJI-ENTRY'
