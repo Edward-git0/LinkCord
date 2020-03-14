@@ -2,6 +2,7 @@ const { RichEmbed } = require('discord.js');
 const pagedSend = require('../functions/pagedSend.js');
 module.exports = {
 	id: 'leaderboard',
+	category: 'public',
 	aliases: ['lb', 'levels'],
 	desc: 'Shows a leaderboard of the top 25 members, sorted by their level.',
 	exec: (call) => {
