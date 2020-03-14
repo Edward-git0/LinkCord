@@ -6,7 +6,7 @@ module.exports = {
     channels: 'guild',
     category: 'public',
     enabled: true,
-    desc: '[PROMPT] Displays the LinkCord shop, where you can buy server upgrades.',
+    desc: '[PROMPT] ~ Displays the LinkCord shop, where you can buy server upgrades.',
     exec: async (call) => {
         try {
             let linkicon = call.client.emojis.get('660886312798257162');
