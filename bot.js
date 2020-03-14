@@ -24,8 +24,8 @@ function newEnmap(name) {
 
 client.on('ready', () => {
 	//Status and Activities
-	client.user.setActivity(`Edward Lurk`, { type: 'WATCHING'} );
-	client.user.setStatus('dnd')
+	client.user.setActivity(`@${client.user.tag} prefix`, { type: 'WATCHING'} );
+	client.user.setStatus('idle')
 	client.log = client.channels.get('659149534894489639')
 	//End Status and activities
 
@@ -40,6 +40,12 @@ client.on('ready', () => {
 		});
 	}, ms('5m'));
 
+	//CHECK IF MUTES ARE EXPIRED --> If they are expired, emit the userUnmute event to trigger the unmute of the user.
+		//to Do 
+	
+	
+	//CHECK IF BANS ARE EXPIRED --> If they are expired, emit the timedUnban event to trigger the automatic unban of the user.
+		//To do
 
 	
 	console.log(`I have logged in as ${client.user.tag}.`);
@@ -66,10 +72,15 @@ client.on('ready', () => {
 
 
 client.on('message', (message) => {
+	if(message.author.bot)
+		return;
+
+	
 	if(message.channel.type === 'text') {
 		client.econData.ensure(`${message.author.id}-${message.guild.id}`, {
 			userID: message.author.id, 
-			linkCoins: 500,
+			guildID: message.guild.id,
+			linkCoins: 175,
 			lastDaily: "0",
 			purchases: [],
 		});
