@@ -3,6 +3,7 @@ module.exports = {
     id: 'approveemoji',
 	aliases: ['ae'],
 	category: 'staff',
+	desc: 'Allows staff to approve emojis sent in via the shop command.',
 	enabled: true,
     channels: 'guild',
     exec: (call) => {
