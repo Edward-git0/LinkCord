@@ -62,9 +62,9 @@ module.exports = {
             
         })
         embed.setDescription(message)
-        call.message.channel.send(embed)
+        call.message.author.send(embed)
         if(embed2.fields.length > 0) {
-            call.message.channel.send(embed2)
+            call.message.author.send(embed2)
         }
         call.message.channel.send(`You viewing commands for ${permissionLevel}`)
 		call.message.channel.send(`I found ${find.size}`)
