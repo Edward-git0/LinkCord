@@ -39,6 +39,8 @@ module.exports = {
             const shopEmbed = new Discord.RichEmbed()
                 .setTitle(`${linkCoin} LinkCoins Shop`)
                 .setColor('BLURPLE')
+                .setThumbnail(call.client.user.avatarURL)
+                .setFooter('Cancel this prompt by reacting with 🗑️. This prompt will last 3 mins.')
                 .setDescription(embedDesc);
             call.message.channel.send(`Click on the reactions below to purchase.`)
             let embedMessage = await call.message.channel.send(shopEmbed)
@@ -48,7 +50,7 @@ module.exports = {
                 embedMessage.react(emojis)
             });
 
-
+            possibleEmojis.push('🗑️')
             embedMessage.awaitReactions(reactionFilter, {
                     max: 1,
                     time: 180000
@@ -75,7 +77,34 @@ module.exports = {
 
                         });
                     } else if (collectedEmoji === '🖼️') {
-                        call.message.reply(`This item's forSale status changed while you were entering the prompt. You have not recieved the item, nor has the balance been deducted. \nThis item's status was \`open\`, but it is now \`store closed for public users. Please try again when the bot is public\` `)
+                        
+                        if(call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins') < 700)
+                            return call.message.reply(`You cannot afford this item! You need \`${700 - call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins')}\` ${linkCoin} more!`)
+                        
+                        let role = call.message.guild.roles.find(r => r.name === 'Image Perms')
+
+                        if(!role)
+                            return call.message.reply(`Sorry, this item became unavailable during the prompt.. Your LinkCoins have been returned to you.`)
+                        
+                        call.client.econData.math(`${call.message.author.id}-${call.message.guild.id}`, '-', 700, 'linkCoins')
+                        call.message.member.addRole(role.id, `The user bought it from the Linkcord shop.`).catch(err => {
+                            call.message.reply(`I couldn't complete the purchase of \`Image Perms\` for you. \nYour **700** ${linkCoin} has been returned to you.`)
+                            call.client.econData.math(`${call.message.author.id}-${call.message.guild.id}`, '+', 700, 'linkCoins')
+                            return;
+                        })
+
+                        let tbhembed = new Discord.RichEmbed()
+                        .setTitle(`${linkicon} Thank you for your purchase of Image Perms! ${linkicon}`)
+                        .setDescription(`You just purchased Image perms from the LinkCord shop for 700 ${linkCoin} \nYour balance is now **${call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins')}** ${linkCoin}`)
+                        .setFooter(`Thanks for your purchase! ~ LinkCord Shop`)
+                        .setColor('BLURPLE')
+                        .setTimestamp();
+
+                        call.message.channel.send(tbhembed)
+                        
+                    } else if(collectedEmoji === '🗑️') {
+                        console.log('canceled')
+                        call.message.channel.send(`You reacted with the 🗑️ reaction. The prompt is now canceled.`)
                     } else if(collectedEmoji === '🙂') {
                         if(call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins') < 300)
                             return call.message.reply(`You cannot afford this item!`)
@@ -91,6 +120,21 @@ module.exports = {
                             time: ms('5m')
                         });
 
+                        if(name.content.length > 32) {
+                            name = await call.prompt(`What would you like your nickname to be? \n**Please make sure it is less than 32 characters.**`, {
+                                time: ms('5m')
+                            })
+                        }
+                        if(name.content.length > 32) {
+                            name = await call.prompt(`What would you like your nickname to be? \n**Please make sure it is less than 32 characters.**`, {
+                                time: ms('5m')
+                            })
+                        }
+                        if(name.content.length > 32) {
+                            name = await call.prompt(`What would you like your nickname to be? \n**Please make sure it is less than 32 characters.**`, {
+                                time: ms('5m')
+                            })
+                        }
                         if(name.content.length > 32) {
                             name = await call.prompt(`What would you like your nickname to be? \n**Please make sure it is less than 32 characters.**`, {
                                 time: ms('5m')
