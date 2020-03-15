@@ -8,7 +8,7 @@ module.exports = {
     channels: 'guild',
     exec: async (call) => {
         try {
-		
+			call.message.delete()
 			if (call.message.member.hasPermission('MANAGE_MESSAGES')) {
 				let message = call.args.join(' ')
 				if(!message)
@@ -18,7 +18,7 @@ module.exports = {
 				let webhook = channelhooks.find(w => w.name === call.message.author.username)
 
 				if(!webhook) {
-					webhook = await call.message.channel.createWebhook(call.message.author.username, call.message.author.avatarURl, ['They are chatting via a webhook'])
+					webhook = await call.message.channel.createWebhook(call.message.author.username, call.message.author.avatarURL, ['They are chatting via a webhook'])
 				}
 
 				webhook.send(message)
