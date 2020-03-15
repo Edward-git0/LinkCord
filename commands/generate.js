@@ -19,20 +19,28 @@ module.exports = {
 					call.prompt(`What is this code for? \n*Valid answers are coins, shopItem*`)
 				},
 				filter: ['coins', 'shopItem', 'shopitem']
-			}).then(collector => {
-				console.log(collector.content)
+			}).then(async collector => {
 				if(collector.content.toLowerCase() === 'coins') {
-					call.message.channel.send(randomize('A0', 6))
-					call.message.channel.send(`This code will be valid for 45 days.`)
+					let code = await call.prompt('Code?')
+					let coinValue = await call.prompt(`How many coins should be given when this code is redeemed?`)
+					if(coinValue.content < 1 || isNaN(coinValue.content))
+						return call.message.channel.send(`Please re-run the command with a valid amount of coins.`)
+					
+					call.message.channel.send(`created.`)
+					call.client.tempData.set(code.content, {
+						code: code.content,
+						generatedBy: call.message.author.tag, 
+						dataType: 'PREMIUM-CODE',
+						coinsToGive: coinValue.content, 
+						coins: true,
+						shopItem: false, 
+						generatedOn: Date.now()
+					})
 				}
 				if(collector.content.toLowerCase() === 'shopitem') {
 					call.message.channel.send(randomize('A0', 6))
 					call.message.channel.send(`This code will be valid for 45 days.`)
-				} else {
-					call.message.channel.send(`Invalid choice. Please re-run the command with the proper choice response.`)
 				}
-			}).catch(error => {
-				call.message.channel.send(`Invalid choice. Please re-run the command with the proper choice response.`)
 			})
 		} catch(error) {
             call.message.channel.send(`💥 Something went wrong while this command was executing! It has been reported to the developer team and it will be fixed soon.`);
