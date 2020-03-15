@@ -10,8 +10,6 @@ module.exports = {
 			return;
 		
 		
-		if(call.message.author.id === '443664778901061633')
-			return call.message.reply('no code. ')
 		if (calledMember) {
 			let found = call.client.moderationData.filter((find) => find.userid === calledMember.user.id && find.guildid === call.message.guild.id);
 
