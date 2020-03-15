@@ -24,8 +24,8 @@ function newEnmap(name) {
 
 client.on('ready', () => {
 	//Status and Activities
-	client.user.setActivity(`@${client.user.tag} prefix`, { type: 'WATCHING'} );
-	client.user.setStatus('idle')
+	client.user.setActivity(`Robots :)`, { type: 'STREAMING', url: 'https://twitch.tv/firstinspires'} );
+	//client.user.setStatus('idle')
 	client.log = client.channels.get('659149534894489639')
 	//End Status and activities
 
