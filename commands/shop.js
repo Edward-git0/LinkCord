@@ -42,7 +42,7 @@ module.exports = {
                 .setThumbnail(call.client.user.avatarURL)
                 .setFooter('Cancel this prompt by reacting with 🗑️. This prompt will last 3 mins.')
                 .setDescription(embedDesc);
-            call.message.channel.send(`Click on the reactions below to purchase.`)
+            let instructions = await call.message.channel.send(`Click on the reactions below to purchase.`)
             let embedMessage = await call.message.channel.send(shopEmbed)
 
 
@@ -64,16 +64,22 @@ module.exports = {
                             if (userData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins') < shopData.get('Diamond-658680354378481675', 'itemCost')) {
                                 return msg.edit(`You don't have enough LinkCoins to complete this purchase.`)
                             }
+                            if(call.message.member.roles.has(call.message.guild.roles.find(r => r.name === '💎 Diamond').id))
+                                return msg.edit(`${call.client.emojis.get('660252757583855638')} You already have **💎 Diamond**.`)
                             call.client.econData.math(`${call.message.author.id}-${call.message.guild.id}`, '-', 1500, 'linkCoins')
 
                             call.message.member.addRole(shopData.get('Diamond-658680354378481675', 'roleIDtoAdd'), `${call.message.author.tag} Purchased Diamond`)
 
-                            msg.edit(`You are now the owner of Diamond Rank! :)`)
-                            let dmRecieptEmbed = new Discord.RichEmbed()
-                                .setTitle(`Your reciept for the purchase of diamond rank.`)
-                                .setDescription(`You purchased \`Diamond Rank\` for a total of ${shopData.get(`Diamond-658680354378481675`, 'itemPrice')} and now have a balance of ${call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins')}`)
-                                .setFooter(`If you ever were to loose your rank, you can show this message as proof of purchase. Don't loose it.`)
-                            call.message.author.send(dmRecieptEmbed)
+                        let tbhembed = new Discord.RichEmbed()
+                        .setTitle(`${linkicon} **Thank you for your purchase of the :gem: Diamond rank** ${linkicon}`)
+                        .setDescription(`You just purchased :gem: Diamond from the LinkCord shop for \`1500\` ${linkCoin} \nYour balance is now \`${call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins')}\` ${linkCoin}`)
+                        .setFooter(`Thanks for your purchase! ~ LinkCord Shop`)
+                        .setColor('BLURPLE')
+                        .setTimestamp();
+
+                        msg.edit(tbhembed)
+                        tbhembed.setFooter(`Thanks for your purchase - LinkCord shop ~ ❗ Keep this DM as proof of purchase ❗`)
+                        call.message.author.send(tbhembed)
 
                         });
                     } else if (collectedEmoji === '🖼️') {
@@ -82,6 +88,8 @@ module.exports = {
                             return call.message.reply(`You cannot afford this item! You need \`${700 - call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins')}\` ${linkCoin} more!`)
                         
                         let role = call.message.guild.roles.find(r => r.name === 'Image Perms')
+                        if(call.message.member.roles.has(role.id))
+                            return call.message.channel.send(`${call.client.emojis.get('660252757583855638')} You already have **Image Perms**.`)
 
                         if(!role)
                             return call.message.reply(`Sorry, this item became unavailable during the prompt.. Your LinkCoins have been returned to you.`)
@@ -94,20 +102,23 @@ module.exports = {
                         })
 
                         let tbhembed = new Discord.RichEmbed()
-                        .setTitle(`${linkicon} Thank you for your purchase of Image Perms! ${linkicon}`)
-                        .setDescription(`You just purchased Image perms from the LinkCord shop for 700 ${linkCoin} \nYour balance is now **${call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins')}** ${linkCoin}`)
+                        .setTitle(`${linkicon} **Thank you for your purchase of Image Perms!** ${linkicon}`)
+                        .setDescription(`You just purchased Image perms from the LinkCord shop for \`700\` ${linkCoin} \nYour balance is now \`${call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins')}\` ${linkCoin}`)
                         .setFooter(`Thanks for your purchase! ~ LinkCord Shop`)
                         .setColor('BLURPLE')
                         .setTimestamp();
 
                         call.message.channel.send(tbhembed)
+                        tbhembed.setFooter(`Thanks for your purchase - LinkCord shop ~ ❗ Keep this DM as proof of purchase ❗`)
+                        call.message.author.send(tbhembed)
                         
                     } else if(collectedEmoji === '🗑️') {
-                        console.log('canceled')
+                        embedMessage.delete()
+                        instructions.delete()
                         call.message.channel.send(`You reacted with the 🗑️ reaction. The prompt is now canceled.`)
                     } else if(collectedEmoji === '🙂') {
                         if(call.client.econData.get(`${call.message.author.id}-${call.message.guild.id}`, 'linkCoins') < 300)
-                            return call.message.reply(`You cannot afford this item!`)
+                            return call.message.reply(`You cannot afford to buy!`)
                         
                         let dmRecieptEmbed = new Discord.RichEmbed()
                         .setTitle(`Your purchase of Custom Nickname`)
