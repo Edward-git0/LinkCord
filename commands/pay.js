@@ -31,6 +31,10 @@ module.exports = {
 			//Make sure they aren't paying themselves (why this is a bad thing, idk? Ask codeward)
 			if(calledMember.id === call.message.author.id)
 				return message.edit(`You cannot pay yourself! *(Why would you want to do that?)*`)
+			
+			//Make sure they aren't trying to pay a bot!
+			if(calledMember.user.bot === true)
+				return message.edit(`:robot: You can't send money to a bot! `)
 
 			//Take the money from the person who is starting the command
 			call.client.econData.math(`${call.message.author.id}-${call.message.guild.id}`, '-', parseInt(coinsToSend), 'linkCoins')
