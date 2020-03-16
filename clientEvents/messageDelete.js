@@ -16,7 +16,7 @@ module.exports = async (client, message) => {
 	if(user.id === message.author.id) {
 	const logger1 = new RichEmbed()
 	.setTitle(`Logs ~ Message Delete`)
-	.setDescription(`There was a message delete in ${message.channel.toString()} \n\n` + `**Message:** \n` + '```' + message + '```')
+	.setDescription(`${message.author}'s message was deleted in ${message.channel.toString()} \n\n` + `**Message:** \n` + '```' + message + '```')
 	.setFooter(`This user deleted their own message. There is no audit log entry.`)
 	.setColor('BLURPLE')
 	.setTimestamp();
