@@ -10,7 +10,8 @@ module.exports = {
         try {
         //code goes here
         } catch(error) {
-            call.message.channel.send(`💥 Something went wrong while this command was executing! It has been reported to the developer team and it will be fixed soon.`);
+            let em = call.client.emojis.get('687791419766734930')
+            call.message.channel.send(`${em} Something went wrong while this command was executing! It has been reported to the developer team and it will be fixed soon.`);
             console.log(error);
         }
     }
