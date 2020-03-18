@@ -55,6 +55,7 @@ client.on('ready', () => {
 	console.log('I have set the status.')
 	console.log('I am now going to initialize the databases');
 	client.econData = newEnmap('economyData');
+	client.matchableRoles = newEnmap('optInRoles')
 	console.log(`The economyData database has been started.`);
 	client.cooldownData = newEnmap('cooldownData');
 	console.log('The cooldownData database has been started');
