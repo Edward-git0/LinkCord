@@ -46,7 +46,7 @@ module.exports = {
 						caseid: caseNum,
 						punishmenttype: 'mute',
 						punishmentreason: reason,
-						expiry: 'perm'
+                        expiry: 1546318800000
 						});
 
 						call.message.reply(`I have successfully muted ${target.user.tag} until January 1st, 2090 for ${reason}`)
