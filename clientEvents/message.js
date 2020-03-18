@@ -5,8 +5,13 @@ module.exports = (client, message) => {
 	// 	if (message.attachments.size > 0)
 	// 		return message.delete()
 	// }
-  let regx = /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-z]/g
-  if(regx.test(message.content.toLowerCase().replace(/\s+/g, ''))) {
+  let messageContent = message.content.replace(`**`, '')
+  messageContent = messageContent.replace(`*`, '')
+  messageContent = messageContent.replace(`***`, '')
+  let regx = /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-z]/gi
+  if(regx.test(messageContent.toLowerCase().replace(/\s+/g, ''))) {
+		// if(message.member.roles.has(message.guild.roles.find(r => r.name === 'Administrator').id))
+		// 	return;
 		message.delete();
 		message.reply(`⚠️ Invite links to other servers are not permitted in this channel. Please submit an advertisement witht the \`~ad\` command. `)
 		let embed = new Discord.RichEmbed()
