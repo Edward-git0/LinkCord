@@ -71,45 +71,6 @@ client.on('ready', () => {
 	console.log(`System Data is ready.`);
 });
 
-
-client.on('message', (message) => {
-	if(message.author.bot)
-		return;
-
-	
-	if(message.channel.type === 'text') {
-		client.econData.ensure(`${message.author.id}-${message.guild.id}`, {
-			userID: message.author.id, 
-			guildID: message.guild.id,
-			linkCoins: 175,
-			lastDaily: "0",
-			purchases: [],
-		});
-		client.cooldownData.ensure(`${message.author.id}-${message.guild.id}`, {
-			userID: message.author.id, 
-			activeCoolGuildID: message.guild.id,
-			commandsWithActiveCool: [], 
-			commandHashWithActiveCool: [], 
-			coolPardon: false,
-		});
-		client.systemData.ensure(message.author.id, {
-			userID: message.author.id, 
-			userBlocked: false, 
-			grantEvalAccess: false, 
-			grantEconAdmin: false, 
-			grantSuperPerms: false, 
-			grantEdwardIsADuck: false, 
-			grantDevCodeAccess: false, 
-			grantCodeExportAccess: false
-		});
-		client.guildData.ensure(message.guild.id, {
-			lastcase: 0,
-			cases: [],
-			playing: false,
-			queue: []
-		});
-	}
-});
 // This loop reads the clientEventsevents folder and attaches each event file properly 
 fs.readdir("./clientEvents/", (err, files) => {
   if (err) return console.error(err);
