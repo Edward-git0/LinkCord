@@ -9,7 +9,6 @@ module.exports = {
         try {
 			let role1 = call.message.guild.roles.find(r => r.name === 'Community Agent')
 			let role2 = call.message.guild.roles.find(r => r.name === 'Administrator')
-			console.log(call.message.member.roles)
             if (call.message.member.roles.has(role1.id) || call.message.member.roles.has(role2.id)) {
 
                 let target = call.message.mentions.users.first()
