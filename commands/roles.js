@@ -2,11 +2,14 @@ const Discord = require('discord.js');
 module.exports = {
     id: 'roles',
     aliases: ['roleslist', 'optionalroles'],
-    desc: 'No Description Provided',
+    desc: 'Allows you to see the optional roles of the server',
     category: 'public',
     enabled: true, 
-    channels: 'guild/dm/any',
+    channels: 'guild',
     exec: (call) => {
+
+        //THIS CODE IS PROPERTY OF LINKCORD. REMOVING THIS LINE WILL CAUSE THE FILE TO SELF DELETE!
+
         try {
 		let roles = call.client.matchableRoles
 		
@@ -15,10 +18,15 @@ module.exports = {
 		});
 		let desc;
 		roles.forEach(d => {
-			desc += `${d.emoji}: ${d.name}`
-		})
+            console.log(d.emoji)
+            console.log(d.name)
+			desc += `${d.emoji} - ${d.name} \n`
+        })
+        console.log(desc)
 		let embed = new Discord.RichEmbed()
-		.setTitle(`Optional Roles`)
+        .setTitle(`Optional Roles`)
+        .setColor('BLURPLE')
+        .setFooter(`LinkCord Optional Roles`)
 		.setDescription(desc)
 		call.message.channel.send(`React with then emoji next to the role to gain that role.`, { embed: embed })
         } catch(error) {
