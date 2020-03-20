@@ -20,6 +20,8 @@ module.exports = {
 		//check if the user they are robbing is a bot
 		if(target.user.bot) 
 			return call.message.channel.send(`Bots have no money for you, move on!`)
+
+		
 		
 		//Define the keys for the database so I don't have to write them over and over and over and over and over and over and over and over and over and over and over
 		let mKey = `${call.message.author.id}-${call.message.guild.id}`
@@ -28,7 +30,10 @@ module.exports = {
 		let prob;
 		let poss = Math.random()
 		let looted;
-		
+
+		//Make sure they have enough LinkCoins to complete the robbery
+		if (call.client.econData.get(mKey, 'linkCoins') < 50)
+			return call.message.channel.send(`You need at least \`50\` ${linkcoin} to rob people!`)
 		// Try to get the targets balance from the database, if that fails they don't have any userdata and must chat before being robbed.
 		try {
 			targetBalance = call.client.econData.get(tKey, 'linkCoins')
@@ -36,8 +41,8 @@ module.exports = {
 			return call.message.channel.send(`That user has nothing to rob! Tell them to chat a little.`)
 		}
 
-		if(targetBalance < 50)
-			return call.message.channel.send(`Its not worth it.. Move on.`)
+		if(call.client.econData.get(tKey, 'linkCoins') < 50)
+			return call.message.channel.send(`Its not worth it. Move on.`)
 		//Calculate prob if they arent members 
 		prob = 0.90
 		if(call.message.member.roles.has(call.message.guild.roles.find(r => r.name === '💎 Diamond').id)) {
@@ -72,6 +77,7 @@ module.exports = {
 			.setTimestamp()
 			.setColor('RED')
 			message.edit(failed)
+			call.client.econData.math(mKey, '-', 50, 'linkCoins')
 		} else {
 			looted = Math.floor(Math.random() * (150 - 75) + 75);
 			if(call.message.member.roles.has(call.message.guild.roles.find(r => r.name === '💎 Diamond').id)) {
@@ -80,13 +86,29 @@ module.exports = {
 			if(call.message.member.roles.has(call.message.guild.roles.find(r => r.name === '💎 Diamond+').id)) {
 				looted = Math.floor(Math.random() * (850 - 400) + 400);
 			}
+			let difference;
+			if(call.client.econData.get(tKey, 'linkCoins') < looted) {
+				difference = looted - call.client.econData.get(tKey, 'linkCoins')
+				looted = looted - difference
+			}
 			let won = new Discord.RichEmbed()
 			.setTitle(`You won the robbery!`)
-			.setTitle(`You were able to loot \`${looted}\` ${linkcoin} from ${target}!`)
-			.setFooter(`Want more loot? run ${call.prefixUsed}store and buy Diamond!`)
-			.setColor('RED')
+			.setTitle(`You were able to loot \`${looted}\` ${linkcoin} from ${target.user.username}!`)
+			.setColor('GREEN')
 			.setThumbnail('https://giphy.com/gifs/swag-money-make-it-rain-2u11zpzwyMTy8')
+
+			if(call.message.member.roles.has(call.message.guild.roles.find(r => r.name === '💎 Diamond').id) || call.message.member.roles.has(call.message.guild.roles.find(r => r.name === '💎 Diamond+').id)) {
+				won.setFooter(`Want more loot? run ${call.prefixUsed}store and buy Diamond!`)
+			}
 			message.edit(won)
+			call.client.econData.math(mKey, '+', looted, 'linkCoins')
+	
+			call.client.econData.math(tKey, '-', looted, 'linkCoins')
+
+			if(call.client.econData.get(tKey, 'linkCoins') < 0) {
+				call.client.econData.set(tKey, 0, 'linkCoins')
+			}
+
 			
 		}
 
