@@ -41,7 +41,9 @@ client.on('ready', () => {
 	}, ms('5m'));
 
 	//CHECK IF MUTES ARE EXPIRED --> If they are expired, emit the userUnmute event to trigger the unmute of the user.
-		//to Do 
+		client.setInterval(() => {
+			console.log('Querying the database for expired mutes.')
+		}, ms('25s'));
 	
 	
 	//CHECK IF BANS ARE EXPIRED --> If they are expired, emit the timedUnban event to trigger the automatic unban of the user.
