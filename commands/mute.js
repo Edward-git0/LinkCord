@@ -46,7 +46,7 @@ module.exports = {
 						caseid: caseNum,
 						punishmenttype: 'mute',
 						punishmentreason: reason,
-                        expiry: 1546318800000
+                        expiry: 'perm'
 						});
 
 						call.message.reply(`I have successfully muted ${target.user.tag} until January 1st, 2090 for ${reason}`)
@@ -56,7 +56,7 @@ module.exports = {
 
 
 					let loggingEmbed = new Discord.RichEmbed()
-					.setTitle(`${target.tag} was muted`)
+					.setTitle(`${target.user.tag} was muted`)
 					.setDescription(`**Moderator:** ${call.message.author.tag} *(${call.message.author.id})* \n**Reason:** ${reason} \n**Case ID:** ${caseNum} \n**Expiry:** perm`)
 					.setFooter(`This user was muted permanently. They must be unmuted manually with the ?unmute command`)
 					.setTimestamp()
