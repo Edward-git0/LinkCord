@@ -42,22 +42,17 @@ module.exports = (client, message) => {
 			commandHashWithActiveCool: [], 
 			coolPardon: false,
 		});
-		client.systemData.ensure(message.author.id, {
-			userID: message.author.id, 
-			userBlocked: false, 
-			grantEvalAccess: false, 
-			grantEconAdmin: false, 
-			grantSuperPerms: false, 
-			grantEdwardIsADuck: false, 
-			grantDevCodeAccess: false, 
-			grantCodeExportAccess: false
-		});
 		client.guildData.ensure(message.guild.id, {
 			lastcase: 0,
 			cases: [],
 			playing: false,
 			queue: []
 		});
+		client.systemData.ensure('system', {
+			pingableReactionMessageID: '0', 
+			devCordReactionMessageID: '0',
+			gameCordReactionMessageID: '0'
+		})
 	}
 
 	if(client.econData.get(`${message.author.id}-${message.guild.id}`, 'linkCoins') < 0) {
