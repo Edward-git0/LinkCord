@@ -7,7 +7,7 @@
     "@discordjs/opus": "^0.1.0",
     "better-sqlite-pool": "^0.2.3",
     "d.js-command-handler": "^1.4.5",
-    "discord.js": "^11.5.1",
+    "discord.js": "^11.6.3",
     "enmap": "^5.2.4",
     "ffmpeg-binaries": "^4.0.0",
     "moment": "^2.24.0",
