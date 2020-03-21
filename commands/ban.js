@@ -54,7 +54,7 @@ module.exports = {
 			caseid: caseNum,
 			punishmenttype: 'ban',
 			punishmentreason: reason,
-			expiry: Date.now() + ms('30d')
+			expiry: 'perm'
 		});
 
 		call.message.channel.send(`The user ${calledMember.user.tag} was banned for __${reason}__`);
