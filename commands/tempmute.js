@@ -54,7 +54,8 @@ module.exports = {
 						caseid: caseNum,
 						punishmenttype: 'mute',
 						punishmentreason: reason,
-						expiry: Date.now() + ms(time)
+                        expiry: Date.now() + ms(time),
+                        punishmentRemoved: false
 						});
 
 						call.message.reply(`I have successfully muted ${target.user.tag} until ${moment(Date.now() + ms(time)).format('MMMM Do YYYY, h:mm:ss a')} for ${reason}`)
