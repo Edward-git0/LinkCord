@@ -42,7 +42,7 @@ module.exports = {
                 return call.message.channel.send(`Please specify a time to mute ${target.tag} for.`)
             
             
-						target.addRole(muteRole, [`${call.message.author.tag} muted them for `])
+						target.addRole(muteRole, [`${call.message.author.tag} muted them for ${time}`])
 						let caseNum = call.client.guildData.get(call.message.guild.id, 'lastcase') + 1;
 						call.client.guildData.set(call.message.guild.id, caseNum, 'lastcase');
 
@@ -54,19 +54,19 @@ module.exports = {
 						caseid: caseNum,
 						punishmenttype: 'mute',
 						punishmentreason: reason,
-						expiry: 'perm'
+						expiry: Date.now() + ms(time)
 						});
 
-						call.message.reply(`I have successfully muted ${target.user.tag} until January 1st, 2090 for ${reason}`)
+						call.message.reply(`I have successfully muted ${target.user.tag} until ${moment(Date.now() + ms(time)).format('MMMM Do YYYY, h:mm:ss a')} for ${reason}`)
 
-						target.send(`**You have been muted in LinkCord!** \nYou were muted by ${call.message.author.tag} for ${reason}`)
+						target.send(`**You have been muted in LinkCord!** \nYou were muted by ${call.message.author.tag} for ${reason} for ${time}`)
 
 
 
 					let loggingEmbed = new Discord.RichEmbed()
-					.setTitle(`${target.tag} was muted`)
-					.setDescription(`**Moderator:** ${call.message.author.tag} *(${call.message.author.id})* \n**Reason:** ${reason} \n**Case ID:** ${caseNum} \n**Expiry:** perm`)
-					.setFooter(`This user was muted permanently. They must be unmuted manually with the ?unmute command`)
+					.setTitle(`${target.user.tag} was muted for ${time}`)
+					.setDescription(`**Moderator:** ${call.message.author.tag} *(${call.message.author.id})* \n**Reason:** ${reason} \n**Case ID:** ${caseNum} \n**Expiry:** ${moment(Date.now() + ms(time)).format('MMMM Do YYYY, h:mm:ss a')}`)
+					.setFooter(`LinkCord Moderation Logs`)
 					.setTimestamp()
 					.setColor(`RED`)
 					call.client.channels.get('659149534894489639').send(loggingEmbed)
