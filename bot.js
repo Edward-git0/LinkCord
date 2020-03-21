@@ -44,6 +44,7 @@ client.on('ready', () => {
 		client.setInterval(() => {
 				client.moderationData.forEach(m => {
 					if(m.expiry === 'perm') return;
+					if(m.punishmentRemoved === true) return;
 					if(Date.now() > m.expiry) {
 						let guild = client.guilds.get('658680354378481675')
 						let role = guild.roles.find(r => r.name === 'Muted')
@@ -66,15 +67,40 @@ client.on('ready', () => {
 							return;
 						log.send(embed)
 
-						client.moderationData.delete(`${m.caseid}-${m.guildid}-${m.userid}`)
-						}
+						client.moderationData.set(`${m.caseid}-${m.guildid}-${m.userid}`, true, 'punishmentRemoved')
+					}
 
 				});		
 		}, ms('5s'));
 	
 	
 	//CHECK IF BANS ARE EXPIRED --> If they are expired, emit the timedUnban event to trigger the automatic unban of the user.
-		//To do
+	client.setInterval(() => {
+		client.moderationData.forEach(async m => {
+			if(m.expiry === 'perm') return;
+			if(m.punishmentRemoved === true) return;
+			if(Date.now() > m.expiry) {
+				let guild = client.guilds.get('658680354378481675')
+				let user = await client.fetchUser(m.userid)
+				guild.unban(m.userid)
+
+				let embed = new Discord.RichEmbed()
+				.setTitle(`I've unbanned a ${user.tag}`)
+				.setDescription(`I have successfully removed the \`ban\` from the user ${user.tag}`)
+				.setFooter(`LinkCord AutoModeration`)
+				.setColor('GREEN')
+				.setTimestamp()
+				.setThumbnail(guild.iconURL)
+				let log = guild.channels.find(c => c.name == 'logs')
+				if(!log)
+					return;
+				log.send(embed)
+
+				client.moderationData.set(`${m.caseid}-${m.guildid}-${m.userid}`, true, 'punishmentRemoved')
+				}
+
+		});		
+}, ms('25s'));
 
 	
 	console.log(`I have logged in as ${client.user.tag}.`);
