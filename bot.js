@@ -40,10 +40,37 @@ client.on('ready', () => {
 		});
 	}, ms('5m'));
 
-	//CHECK IF MUTES ARE EXPIRED --> If they are expired, emit the userUnmute event to trigger the unmute of the user.
+	//CHECK IF MUTES ARE EXPIRED --> If they are expired, unmute them now~
 		client.setInterval(() => {
-			console.log('Querying the database for expired mutes.')
-		}, ms('25s'));
+				client.moderationData.forEach(m => {
+					if(m.expiry === 'perm') return;
+					if(Date.now() > m.expiry) {
+						let guild = client.guilds.get('658680354378481675')
+						let role = guild.roles.find(r => r.name === 'Muted')
+						let user = guild.members.get(m.userid)
+						if(!user)
+							return;
+						guild.members.get(m.userid).removeRole(role.id, ['Their mute time is now over.'])
+
+						let embed = new Discord.RichEmbed()
+						.setTitle(`I've unmuted a ${client.users.get(m.userid).tag}`)
+						.setDescription(`I have successfully removed the \`Muted\` role from the user ${user.user.tag}`)
+						.setFooter(`LinkCord automoderation`)
+						.setColor('GREEN')
+						.setTimestamp()
+						.setThumbnail(user.user.avatarURL)
+
+						user.send(`**You have been unmuted in LinkCord by ${client.user.username} for __Automatic Unmute__** 🥳`)
+						let log = guild.channels.find(c => c.name == 'logs')
+						if(!log)
+							return;
+						log.send(embed)
+
+						client.moderationData.delete(`${m.caseid}-${m.guildid}-${m.userid}`)
+						}
+
+				});		
+		}, ms('5s'));
 	
 	
 	//CHECK IF BANS ARE EXPIRED --> If they are expired, emit the timedUnban event to trigger the automatic unban of the user.
