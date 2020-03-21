@@ -12,7 +12,6 @@ Checklist
 ❎ Indicates a item that has been completely finished, tested, and implemented.
 
 
-
 # Checklist 
 
 ✅ Database
