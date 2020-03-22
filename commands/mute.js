@@ -49,8 +49,12 @@ module.exports = {
                         expiry: 'perm'
 						});
 
-						call.message.reply(`I have successfully muted ${target.user.tag} until January 1st, 2090 for ${reason}`)
-
+                        let channelEmbed = new Discord.RichEmbed()
+                        .setTitle(`I have successfully muted ${target.user.tag}!`)
+                        .setDescription(`**${target.user.tag} was muted for __${reason}__.**\nThis is case #${caseNum}`)
+                        .setFooter(`This mute will never expire ~ LinkCord Moderation`)
+                        .setColor('ORANGE')
+						call.message.reply(channelEmbed)
 						target.send(`**You have been muted in LinkCord!** \nYou were muted by ${call.message.author.tag} for ${reason}`)
 
 
