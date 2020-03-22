@@ -3,7 +3,8 @@ module.exports = {
 	id: 'addshopitem',
 	category: 'developer',
 	enabled: true,
-    aliases: [],
+	aliases: [],
+	desc: 'Allows developers to add an item to the live shop', 
     channels: 'guild',
     exec: async (call) => {
         try {
