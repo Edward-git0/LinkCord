@@ -24,7 +24,7 @@ function newEnmap(name) {
 
 client.on('ready', () => {
 	//Status and Activities
-	client.user.setActivity(`Robots :)`, { type: 'STREAMING', url: 'https://twitch.tv/firstinspires'} );
+	client.user.setActivity(`for @${client.user.username} prefix`, { type: 'WATCHING'});
 	//client.user.setStatus('idle')
 	client.log = client.channels.get('659149534894489639')
 	//End Status and activities
@@ -43,6 +43,8 @@ client.on('ready', () => {
 	//CHECK IF MUTES ARE EXPIRED --> If they are expired, unmute them now~
 		client.setInterval(() => {
 				client.moderationData.forEach(m => {
+					if(m.punishmenttype !== 'mute')
+						return;
 					if(m.expiry === 'perm') return;
 					if(m.punishmentRemoved === true) return;
 					if(Date.now() > m.expiry) {
@@ -78,6 +80,8 @@ client.on('ready', () => {
 	client.setInterval(() => {
 		client.moderationData.forEach(async m => {
 			if(m.expiry === 'perm') return;
+			if(m.punishmenttype !== 'ban')
+					return;
 			if(m.punishmentRemoved === true) return;
 			if(Date.now() > m.expiry) {
 				let guild = client.guilds.get('658680354378481675')
@@ -100,7 +104,7 @@ client.on('ready', () => {
 				}
 
 		});		
-}, ms('25s'));
+}, ms('10s'));
 
 	
 	console.log(`I have logged in as ${client.user.tag}.`);
@@ -123,6 +127,7 @@ client.on('ready', () => {
 	console.log(`I am now intializing the systemData databse.`);
 	client.systemData = newEnmap('systemData');
 	client.tempData = newEnmap('tempData')
+	client.giveaways = newEnmap('giveawayData')
 	console.log(`System Data is ready.`);
 });
 
