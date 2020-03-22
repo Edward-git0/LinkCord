@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
     id: 'add',
     category: 'developer',
+    desc: 'Allows the developers and Event hosts to add balance to a user for an event/payout.',
 	enabled: true,
     aliases: ['baladd', 'balanceadd', 'configadduserbal'],
     channels: 'guild',
