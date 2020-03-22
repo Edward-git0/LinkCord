@@ -5,6 +5,7 @@ const randomize = require('randomatic');
 module.exports = {
     id: 'apply',
     category: 'public',
+    desc: 'This command is disabled.',
 	enabled: false,
 	aliases: ['jointhestaff', 'applyforstaff'],
     channels: 'any',
