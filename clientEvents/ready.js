@@ -12,45 +12,10 @@ module.exports = async (client) => {
 	client.setInterval(() => {
 		client.giveaways.forEach(async g => {
 			if(Date.now() > g.endDate) {
-				let channel = client.channels.get(g.channel)
-				let msg = await channel.fetchMessage(g.msgID)
-				let reacted = msg.reactions.get('linkcord:660886312798257162').users
+				if(g.finished === true)
+					return;
 				
-				reacted = reacted.filter(u => {
-					return u.bot == false;
-				})
-
-
-
-				let noReactedEmbed = new RichEmbed()
-						.setTitle(`The giveaway of ${g.giveawayItem} has now ended!`)
-						.setDescription(`There was **no** winner because nobody reacted!`)
-						.setColor('ORANGE')
-						.setFooter(`LinkCord Giveaways`)
-					let notEnoughReacted = new RichEmbed()
-						.setTitle(`The giveaway of ${g.giveawayItem} has now ended!`)
-						.setDescription(`There was **no** winner because not enough people reacted!`)
-						.setColor('ORANGE')
-						.setFooter(`LinkCord Giveaways`)
-					if(reacted.size === 0) {
-						client.giveaways.delete(msg.id)
-						return msg.edit(noReactedEmbed)
-					
-					}
-					
-					if(reacted.size <= g.totalWinners){
-						client.giveaways.delete(msg.id)
-						return msg.edit(notEnoughReacted)
-
-					} 
-					let random = reacted.random(g.totalWinners)
-					let finishedEmbed = new RichEmbed()
-					.setTitle(`🥳 The giveaway has now ended!🥳`)
-					.setDescription(`The winners ` + `are ${random.join(', ')}`)
-					.setFooter(`LinkCord giveaways`)
-					channel.send(finishedEmbed)
-					
-					client.giveaways.delete(msg.id)
+				client.emit('giveawayEnd', g.msgID)
 			}
 		})
 	}, ms('10s'));
