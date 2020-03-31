@@ -17,7 +17,13 @@ module.exports = {
             let channelPrompt = await call.prompt(`Where should this take place?`)
             let pingBool = await call.prompt(`Should I ping the Giveaway ping role for this giveaway? **Correct Answers are yes or no**`, {
                 filter: ['yes', 'no'],
-                correct: true
+                // matchUntil: () => {
+                //     call.prompt(`Should I ping the giveaway role for this giveaway? \n❗❗ ***THE CORRECT ANSWERS ARE YES OR NO*** ❗❗`).then(msg => {
+                //         if(msg.content.toLowerCase() === 'yes') return true;
+                //         if(msg.content.toLowerCase() === 'no') return true;
+                //         else return false;
+                //     })
+                // },
             })
             let cord = call.client.emojis.get('660886312798257162')
 
@@ -30,7 +36,7 @@ module.exports = {
                 return call.message.channel.send(`Please re-run the command and provide a valid time.`)
             let toSendEmbed = new Discord.RichEmbed()
             .setTitle(`Giveaway: ${itemPrompt.content}`)
-            .setDescription(`React with ${cord} to enter into this giveaway \n\nThis giveaway will have **${winners}** winner and will last until ${moment(Date.now() + time).format('MMMM Do YYYY, h:mm a')}`)
+            .setDescription(`React with ${cord} to enter into this giveaway \n\nThis giveaway will have **${winners}** winner${winners == 1 ? "" : "s"} and will last until ${moment(Date.now() + time).format('MMMM Do YYYY, h:mm a')}`)
             .setFooter(`LinkCord Giveaways ~ This giveaway was started by ${call.message.author.username}`)
             .setColor('BLURPLE')
             .setTimestamp()
@@ -46,8 +52,9 @@ module.exports = {
                     time: time,
                     endDate: Date.now() + time,
                     channel: giveawayChannel.id,
-                    created: Date.now(),
-                    winners: []
+                    finishedOn: Date.now() + time,
+                    winners: [],
+                    finished: false
                 })
 
                 call.message.channel.send(`I've created that giveaway!`)
