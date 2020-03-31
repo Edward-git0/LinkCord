@@ -5,7 +5,9 @@ module.exports = (client, message) => {
 	// 	if (message.attachments.size > 0)
 	// 		return message.delete()
 	// }
-  let messageContent = message.content.replace(`**`, '')
+
+  if(message.channel.type === 'text') {
+	let messageContent = message.content.replace(`**`, '')
   messageContent = messageContent.replace(`*`, '')
   messageContent = messageContent.replace(`***`, '')
   let regx = /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-z]/gi
@@ -13,7 +15,7 @@ module.exports = (client, message) => {
 		if(message.member.roles.has(message.guild.roles.find(r => r.name === 'Administrator').id))
 			return;
 		message.delete();
-		message.reply(`⚠️ Invite links to other servers are not permitted in this channel. Please submit an advertisement witht the \`~ad\` command. `)
+		message.author.send(`⚠️ Invite links to other servers are not permitted in this channel. Please submit an advertisement witht the \`~ad\` command. `)
 		let embed = new Discord.RichEmbed()
 		.setTitle('⚠️ An automoderation warning was issued')
 		.setDescription(`A moderation action was taken against **${message.author.tag}** *(${message.author.id})* for their message in ${message.channel.toString()} with the content of` + '```' + message.content + '```')
@@ -22,6 +24,8 @@ module.exports = (client, message) => {
 		.setFooter(`LinkCord Moderation ~ Warning`, message.author.avatarURL)
 		client.channels.get('659149534894489639').send(embed)
   }
+  }
+  
 
   if(message.author.bot)
 		return;
@@ -53,9 +57,11 @@ module.exports = (client, message) => {
 			devCordReactionMessageID: '0',
 			gameCordReactionMessageID: '0'
 		})
+
+		if(client.econData.get(`${message.author.id}-${message.guild.id}`, 'linkCoins') < 0) {
+			client.econData.set(`${message.author.id}-${message.guild.id}`, 0, 'linkCoins')
+		}
 	}
 
-	if(client.econData.get(`${message.author.id}-${message.guild.id}`, 'linkCoins') < 0) {
-		client.econData.set(`${message.author.id}-${message.guild.id}`, 0, 'linkCoins')
-	}
+	
 };
