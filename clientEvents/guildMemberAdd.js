@@ -18,4 +18,19 @@ module.exports = (client, member) => {
     member.addRole('661242080374423562')
     member.addRole('661242059562287114')
     member.addRole('661242024569208854')
+
+
+    let muteFind = client.moderationData.find(r => {
+        return r.punishmentRemoved === false && r.userid === member.id && r.punishmenttype === 'mute'
+    })
+    if(muteFind) {
+        let embed = new Discord.RichEmbed()
+        .setTitle(`A mute has been re-issued.`)
+        .setDescription(`⚠️ A user tried to evade a mute and was remuted! ⚠️\n**User:**${member}\n**Reason:** ${muteFind.reason}`)
+        .setFooter(`LinkCord Moderation`, client.user.avatarURL)
+        .setTimestamp()
+        .setColor('YELLOW')
+        member.guild.channels.find(r => r.name === 'logs').send(embed)
+        member.addRole(member.guild.roles.find(r => r.name === 'Muted'), 'The user tried to evade a mute.')
+    }
 }
