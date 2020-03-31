@@ -14,22 +14,20 @@ module.exports = {
             find = call.commands.filter(c => {
                 return c.category === 'public' && c.enabled === true
             });
+
+            if (call.message.member.highestRole.id === '660251268924571692' || call.message.member.highestRole.id === '658837499325579264' || call.message.member.highestRole.id === '659408832761561122' || call.message.member.highestRole.id === '659011063312023572' || call.message.member.roles.has('658867543120805898') || call.message.member.roles.has('659011063312023572')) {
+				console.log('staff')
+                find = call.commands.filter(c => {
+                    return c.category === 'public' || c.category === 'staff' & c.enabled === true
+                });
+            }
+
             if (call.message.member.highestRole.id === '658837632066912276' || call.message.member.roles.has(call.message.guild.roles.find(r => r.name === 'Administrator').id)) {
                 console.log('admin')
                 find = call.commands.filter(c => {
                     return c.category === 'public' || c.category === 'developer' || c.category === 'staff'
                 });
 
-            }
-
-            if (call.message.member.highestRole.id === '660251268924571692' || call.message.member.highestRole.id === '658837499325579264' || call.message.member.highestRole.id === '659408832761561122' || call.message.member.highestRole.id === '659011063312023572' || call.message.member.roles.has('658867543120805898') || call.message.member.roles.has('659011063312023572')) {
-				if(call.message.member.roles.has(call.message.guild.roles.find(r => r.name === 'Administrator').id))
-					return;
-				
-				console.log('staff')
-                find = call.commands.filter(c => {
-                    return c.category === 'public' || c.category === 'staff' & c.enabled === true
-                });
             }
             if (!find) {
                 return call.message.channel.send(`There are no commands available for view. You may be blacklisted or the bot may be under maintenance.`)
