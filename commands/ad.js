@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const randomize = require('randomatic');
+const ms = require('ms')
 module.exports = {
     id: 'ad',
     category: 'public',
@@ -32,29 +33,29 @@ module.exports = {
                     call.message.channel.send(`I couldn't send the DM. Please check the openness of your DMs`)
                 });
                 const titlePrompt = await call.prompt(`What would you like the title for your advertisement to be?`, {
-                    time: 60000,
+                    time: ms('12m'),
                     channel: usersDMs
                 })
                 initialMessage.edit(`Prompt in progress`)
                 call.message.author.send(exampleEmbed)
                 const embedBodyPrompt = await call.prompt(`What would you like the body of your embed to be?`, {
-                    time: 50000,
+                    time: ms('12m'),
                     channel: usersDMs
                 })
     
-                const collectImagePrompt = await call.prompt(`Please send an image attachment of the image you would like on your advertisement.`, {
-                    time: 60000,
+                const collectImagePrompt = await call.prompt(`Please send an image attachment or link of the image you would like on your advertisement.`, {
+                    time: ms('12m'),
                     channel: usersDMs
                 })
     
                 const title = titlePrompt.content;
                 const body = embedBodyPrompt.content;
-                let imageURL = collectImagePrompt.attachments.first().url
+                let imageURL = collectImagePrompt.attachments.first().url || collectImagePrompt.content;
                 const adID = randomize(`A0`, 6);
                 const approvalPrompt = new Discord.RichEmbed()
                     .setTitle(`${call.message.author.tag} submitted an advertisement with an ID of ${adID}`)
                     .setDescription(`**Title:** ${title} \n\n**Body:** ${body} \n\n The image is attached to this embed.`)
-                    .setFooter(`You can approve or deny this with the ?approvead ${adID} or ?denyad ${adID} [reason]`)
+                    .setFooter(`You can approve or deny this with the ${call.prefixUsed}acceptad ${adID} or ${call.prefixUsed}denyad ${adID} [reason]`)
                     .setColor('BLURPLE')
                     .setImage(imageURL);
     
@@ -69,6 +70,7 @@ module.exports = {
                     dateSubmitted: Date.now(),
                     applyingUserID: call.message.author.id,
                     applyingUserTag: call.message.author.tag,
+                    logChannelID: advertisementApprovalChat.id, 
                     embedTitle: title,
                     embedBody: body,
                     embedImage: imageURL
