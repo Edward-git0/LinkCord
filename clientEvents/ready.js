@@ -1,4 +1,5 @@
 const ms = require('ms')
+const Enmap = require('enmap')
 const { RichEmbed } = require('discord.js')
 module.exports = async (client) => {
 	client.channels.get('690660367105392721').fetchMessage(client.systemData.get('system', 'pingableReactionMessageID'))
@@ -19,4 +20,6 @@ module.exports = async (client) => {
 			}
 		})
 	}, ms('10s'));
+
+	client.memoryData = new Enmap();
 }
