@@ -50,7 +50,7 @@ module.exports = {
     
                 const title = titlePrompt.content;
                 const body = embedBodyPrompt.content;
-                let imageURL = collectImagePrompt.attachments.first().url || collectImagePrompt.content;
+                let imageURL = collectImagePrompt.content || collectImagePrompt.attachments.first().url
                 const adID = randomize(`A0`, 6);
                 const approvalPrompt = new Discord.RichEmbed()
                     .setTitle(`${call.message.author.tag} submitted an advertisement with an ID of ${adID}`)
@@ -59,7 +59,7 @@ module.exports = {
                     .setColor('BLURPLE')
                     .setImage(imageURL);
     
-                advertisementApprovalChat.send(approvalPrompt);
+                let msg = await advertisementApprovalChat.send(approvalPrompt);
                 //save to the database
     
                 call.client.ads.set(`${adID}-${call.message.author.id}`, {
@@ -70,7 +70,7 @@ module.exports = {
                     dateSubmitted: Date.now(),
                     applyingUserID: call.message.author.id,
                     applyingUserTag: call.message.author.tag,
-                    logChannelID: advertisementApprovalChat.id, 
+                    logChannelMessageID: msg.id, 
                     embedTitle: title,
                     embedBody: body,
                     embedImage: imageURL
