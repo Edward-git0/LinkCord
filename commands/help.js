@@ -1,14 +1,15 @@
 const Discord = require('discord.js');
+let pagedSend = require('../functions/pagedSend.js')
 module.exports = {
     id: 'help',
-    aliases: ['h'],
-    category: 'public',
+	aliases: ['h'],
+	category: 'public',
     desc: 'Displays this help command to you in dms.',
     enabled: true,
     channels: 'guild',
     exec: (call) => {
         try {
-
+        
             let find;
             console.log('member')
             find = call.commands.filter(c => {
@@ -35,37 +36,17 @@ module.exports = {
 
             if (find.size === 0)
                 return call.message.channel.send(`There are no commands available for view. You may be blacklisted or the bot may be under maintenance.`)
-
-            let message = '';
+            let arr = find.map(r => `**${r.id}** - ${r.desc}`)
             let embed = new Discord.RichEmbed()
-                .setTitle(`LinkCord Commands`)
-                .setFooter(`Thanks for using LinkCord!`)
-                .setColor('BLURPLE')
-                .setThumbnail(call.message.guild.iconURL)
-            let embed2 = new Discord.RichEmbed()
-                .setTitle(`LinkCord Commands (continued)`)
-                .setColor('BLURPLE')
-                .setFooter(`Thanks for using LinkCord!`, call.client.user.avatarURL)
-                .setThumbnail(call.message.guild.iconURL)
-            find.forEach(tbh => {
-                if (embed.fields.length >= 25) {
-                    embed2.addField(tbh.id, tbh.desc)
-                    return;
-                }
-                embed.addField(tbh.id, tbh.desc)
-
-
-            })
-            embed.setDescription(message)
-            call.message.author.send(embed)
-            if (embed2.fields.length > 0) {
-                call.message.author.send(embed2)
-            }
+            .setTitle(`Thanks for using LinkCord! Commands available to you are listed below! `)
+            .setColor('BLURPLE')
+            .setThumbnail(call.client.user.avatarURL)
+                pagedSend(call, embed, { values: arr, valuesPerPage: 15, dm: true});
             call.message.channel.send(`${call.client.emojis.get('660886312798257162')} I've sent it over in your DMS's!`)
-        } catch (error) {
+        } catch(error) {
             let emergencylight = call.client.emojis.get('687791419766734930')
             call.message.channel.send(`${emergencylight} Something went wrong while this command was executing! It has been reported to the developer team and it will be fixed soon.`);
             console.log(error);
         }
     }
-};
+}; 
