@@ -16,9 +16,9 @@ module.exports = {
 			let reason = call.args.slice(1).join(' ');
 
 			if(!id)
-				return call.message.reply(`Please type out the user who requested the emoji.`)
+				return call.message.reply(`Please type out the ID of user who requested the emoji.`)
 			if(!reason)
-				return call.message.reply(`Please reply with the reason for why the emoji should declined.`)
+				return call.message.reply(`Please type out the reason for why the emoji should declined.`)
 			
 			
 			let searchForEmoji = call.client.tempData.find(filter => {
