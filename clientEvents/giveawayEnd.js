@@ -11,7 +11,7 @@ module.exports = async (client, giveawayID) => {
 				})
 
 
-
+				console.log(reacted)
 				let noReactedEmbed = new RichEmbed()
 						.setTitle(`The giveaway of ${g.giveawayItem} has now ended!`)
 						.setDescription(`There was **no** winner because nobody reacted!`)
