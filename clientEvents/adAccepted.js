@@ -4,7 +4,6 @@ module.exports = (client, adID) => {
 	let ad = client.ads.find(a => {
 		return a.status === 'waiting' && a.adID === adID
 	});
-	console.log('got 9')
 	let adChannel = client.guilds.get(ad.advertisementGuildID).channels.find(c => c.name === 'adverts');
 	let user = client.users.get(ad.applyingUserID)
 
@@ -14,6 +13,8 @@ module.exports = (client, adID) => {
 	.setColor('BLURPLE')
     .setFooter(`Submitted by ${ad.applyingUserTag}`)
 	.setImage(ad.embedImage)
-	console.log('got 19')
 	adChannel.send(embed)
+
+	client.ads.set(`${ad.adID}-${ad.applyingUserID}`, 'declined', 'status')
+	user.send(`**Congrats your advertisement has been posted in LinkCord!** You can view it over in ${adChannel} \nJust to refresh, you posted an advertisement with an ID of ` + '```' + ad.adID + '```' + '\nWith a title of ' + '```' + ad.embedTitle + '```' + '\n If you would like your advertisement removed, please contact a Community Agent.')
 }
