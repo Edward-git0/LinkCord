@@ -9,7 +9,7 @@ module.exports = {
     exec: (call) => {
         try {
 		
-			if(call.message.member.roles.has(call.message.guild.roles.find(r => r.name === 'Community Agent').id) || call.message.member.roles.has(call.message.guild.roles.find(r => r.name === 'Event Host').id)) {
+			if(call.message.member.roles.has(call.message.guild.roles.find(r => r.name === 'Community Agent').id) || call.message.member.roles.has(call.message.guild.roles.find(r => r.name === 'Administrator').id)) {
 				let providedID = call.args[0]
 
 				if(!providedID)
