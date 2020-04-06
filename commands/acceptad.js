@@ -8,7 +8,6 @@ module.exports = {
     exec: (call) => {
         try {
             if(call.message.channel.name !== 'ad-approval') {
-                console.log('not ad approval')
                 return;
             }
             
@@ -18,17 +17,19 @@ module.exports = {
             let ad = call.client.ads.find(a => {
                 return a.status === 'waiting' && a.adID === id
             })
-
+            
+            if(!ad) 
+                return call.message.channel.send(`No advertisement with that ID found.`)
             call.client.emit('adAccepted', ad.adID)
 
             call.message.delete()
-            // call.message.channel.fetchMessage(ad.logChannelID).then(msg => {
-            //     msg.delete();
-            // }).catch(() => {
-            //     call.message.reply(`Approved the advertisement, but unable to delete the log message. Please delete it manually.`).then(msg => {
-            //         msg.delete(7000)
-            //     })
-            // })
+            call.message.channel.fetchMessage(ad.logChannelMessageID).then(msg => {
+                msg.delete();
+            }).catch(() => {
+                call.message.reply(`Approved the advertisement, but unable to delete the log message. Please delete it manually.`).then(msg => {
+                    msg.delete(7000)
+                })
+            })
             
 
             
