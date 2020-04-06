@@ -33,9 +33,10 @@ module.exports = {
             await call.message.channel.fetchMessages({
                 limit: toDelete
             }).then(messages => {
-                call.message.channel.bulkDelete(messages);
-            });
-
+                call.message.channel.bulkDelete(messages).catch(error => {
+                    call.message.channel.send(`I was unable to purge the channel. Is there some messages that are over 14 days old?`)
+                })
+            })
             
             
             log.send(`${call.message.author.tag} has run the purge command to clear ${call.message.channel.toString()} of ${toDelete} messages. `)
