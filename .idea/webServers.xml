@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2464e7da-4867-4cc8-8888-82153682a61f" name="192.168.1.231" url="http://192.168.1.231">
+        <fileTransfer host="192.168.1.231" port="21" rootFolder="/Desktop/LinkBotV2">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
