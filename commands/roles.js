@@ -28,7 +28,7 @@ module.exports = {
         };
         
 
-        let initialMessage = await call.message.channel.send(`Loading this prompt..`)
+        let initialMessage = await call.message.channel.send(`${call.client.emojis.get('694971589154045952')} Loading this prompt`)
         //Embeds
 
             //First initial Embed
@@ -186,7 +186,7 @@ module.exports = {
             initialMessage.clearReactions()
         } //Cancel the prompt 
         else if (collected.first().emoji.name === '🗑️') {
-            initialMessage.edit(`This prompt is now closing.`)
+            initialMessage.edit(`${call.client.emojis.get('694971589154045952')} This prompt is now closing.`)
             call.message.delete()
             initialMessage.delete(ms('3s'))
         }
