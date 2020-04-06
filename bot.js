@@ -1,21 +1,22 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const handler = require('d.js-command-handler');
-const config = require('./config.js');
 const Enmap = require('enmap');
 const ms = require('ms')
 
 
 //initalize the client
 const client = new Discord.Client();
-client.login(config.token);
+client.config = require('./config.js')
+client.login(client.config.token);
+
 
 function newEnmap(name) {
 	return new Enmap({
-		name, 
+		name,
 		fetchAll: true,
-		cloneLevel: 'deep', 
-		autoFetch: true, 
+		cloneLevel: 'deep',
+		autoFetch: true,
 		polling: true
 	});
 }
@@ -24,13 +25,13 @@ function newEnmap(name) {
 
 client.on('ready', () => {
 	//Status and Activities
-	client.user.setActivity(`for @${client.user.username} prefix`, { type: 'WATCHING'});
+	client.user.setActivity(`for @${client.user.username} prefix | V2`, { type: 'WATCHING'});
 	//client.user.setStatus('idle')
 	client.log = client.channels.get('659149534894489639')
 	//End Status and activities
 
-	//Intervals for checking on cooldowns/timeouts. 
-	
+	//Intervals for checking on cooldowns/timeouts.
+
 	//CHECK IF ADS ARE OLD, --> IF THEY ARE OLD, REMOVE THEM FROM THE DATABASE AND REMOVE THE COOLDOWN ON THE USER
 	client.setInterval(() => {
 		client.ads.forEach(each => {
@@ -72,10 +73,10 @@ client.on('ready', () => {
 						client.moderationData.set(`${m.caseid}-${m.guildid}-${m.userid}`, true, 'punishmentRemoved')
 					}
 
-				});		
+				});
 		}, ms('5s'));
-	
-	
+
+
 	//CHECK IF BANS ARE EXPIRED --> If they are expired, emit the timedUnban event to trigger the automatic unban of the user.
 	client.setInterval(() => {
 		client.moderationData.forEach(async m => {
@@ -103,14 +104,14 @@ client.on('ready', () => {
 				client.moderationData.set(`${m.caseid}-${m.guildid}-${m.userid}`, true, 'punishmentRemoved')
 				}
 
-		});		
+		});
 }, ms('10s'));
 
-	
+
 	console.log(`I have logged in as ${client.user.tag}.`);
 	console.log('I am now going to initalize myself for use.');
 	console.log('Now trying to set the status of the bot.');
-	
+
 	console.log('I have set the status.')
 	console.log('I am now going to initialize the databases');
 	client.econData = newEnmap('economyData');
@@ -131,7 +132,7 @@ client.on('ready', () => {
 	console.log(`System Data is ready.`);
 });
 
-// This loop reads the clientEventsevents folder and attaches each event file properly 
+// This loop reads the clientEventsevents folder and attaches each event file properly
 fs.readdir("./clientEvents/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {
@@ -148,4 +149,4 @@ fs.readdir("./clientEvents/", (err, files) => {
   });
 });
 
-handler(__dirname + '/commands', client, { customPrefix: config.prefix } );
+handler(__dirname + '/commands', client, { customPrefix: client.config.prefix } );
