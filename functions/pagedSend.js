@@ -46,22 +46,28 @@ module.exports = function pagedSend(call, embed, options = {}) {
 				call.commands._pagedRequests.set(call.message.author.id, null);
 		}
 
-		call.message.channel.send(embed).then(async (msg) => {
+		let channel = call.message.channel;
+		if(options.dm === true) {
+			channel = call.message.author
+		}
+		channel.send(embed).then(async (msg) => {
 			if (options.valuesPerPage < options.values.length) {
 				await msg.react('◀');
 				await msg.react('▶');
 
-				let collector = msg.createReactionCollector((r, u) => ['◀', '▶', '🗑'].includes(r.emoji.name) &&
+				let collector = msg.createReactionCollector((r, u) => ['◀', '▶', '🗑️'].includes(r.emoji.name) &&
 						u.id === call.message.author.id &&
 						(options.filter || (() => true))(r, u), options.collectorOptions);
 
 				call.commands._pagedRequests.set(call.message.author.id, collector);
 
 				collector.on('collect', (reaction) => {
-					if (reaction.emoji.name === '🗑')
+					if (reaction.emoji.name === '🗑️') {
 						return collector.stop();
-
-					reaction.remove(call.message.author);
+					}
+					if(!options.dm) {
+						reaction.remove(call.message.author);
+					}
 
 					if (reaction.emoji.name === '◀') {
 						if (page !== 1) {
