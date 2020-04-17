@@ -7,7 +7,7 @@ module.exports = {
 	desc: 'Makes the bot think the user sent the message (with the content specified) to the current channel.',
 	exec: async (call) => {
 
-		if (call.message.member.hasPermission('MANAGE_GUILD')) {
+		if (call.message.member.hasPermission('MANAGE_SERVER')) {
 			let author = call.client.users.get(((call.args[0] || '').match(/\d+/) || [])[0]);
 			if (author != null) {
 				let content = call.message.content.substring(call.prefixUsed.length).trim().substring(5 + call.args[0].length).trim();
