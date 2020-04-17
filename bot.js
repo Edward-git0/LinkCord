@@ -142,7 +142,8 @@ fs.readdir("./clientEvents/", (err, files) => {
     const event = require(`./clientEvents/${file}`);
     // Get just the event name
     let eventName = file.split(".")[0];
-    // this means each event will be called with the client, so the client can be used in any event added to the bot.
+    // this means each event will be called with the client argument,
+	// followed by its "normal" arguments, like message, member, etc etc.
     client.on(eventName, event.bind(null, client));
     delete require.cache[require.resolve(`./clientEvents/${file}`)];
   });
