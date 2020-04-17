@@ -49,9 +49,8 @@ module.exports = {
 		call.message.channel.send(`User ${calledMember.user.username} recieved 1 strike. Case Num: ${caseNum}`);
 
 		let findStrike = call.client.moderationData.filter(d => {
-			return d.expiry < Date.now() + ms('30d')
-		})
-
+			return d.expiry < Date.now() + ms('30d') && d.userid === calledMember.id
+		});
 		if(findStrike.size >= 5) {
 			call.message.channel.send(`I am kicking **${calledMember.user.tag}**. They have greater than 5 strikes.`);
 
