@@ -6,13 +6,13 @@ module.exports = {
 	enabled: true,
 	desc: 'Allows the bot developer to execute JavaScript inside of Discord.',
 	aliases: ['run', 'e', 'r'],
+	channels: 'any',
 	exec: (call) => {
 		try {
-			let role = call.message.guild.roles.get('658837632066912276')
 
-			if(!call.message.member.roles.has(role.id)) return; 
-
-			if(call.message.author.id === '370258372211245068') 
+			if(call.message.author.id !== '300816697282002946')
+					return;
+			if(call.message.author.id === '370258372211245068')
 				return call.message.reply(`no anne`)
 			let codein = call.args.join(' ');
 
