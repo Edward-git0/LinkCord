@@ -11,11 +11,11 @@ module.exports = {
 
             if(!call.message.member.permissions.has('MANAGE_MESSAGES'))
                 return;
-            
+            await call.message.delete();
             let toDelete = call.args[0]
 			if (!toDelete || isNaN(toDelete)) return call.message.channel.send("Please enter a **valid** amount of messages. :x:");
             if(toDelete > 100 || toDelete < 2) return call.message.reply(`Please pick a number from **2** to **100**`)
-            
+
             let log = call.message.guild.channels.find(c => c.name === 'logs')
 
             let embed = new Discord.RichEmbed()
@@ -30,18 +30,14 @@ module.exports = {
                 .setFooter(`LinkCord`)
                 call.message.channel.send(embed)
             }
-            await call.message.channel.fetchMessages({
-                limit: toDelete
-            }).then(messages => {
-                call.message.channel.bulkDelete(messages).catch(error => {
-                    call.message.channel.send(`I was unable to purge the channel. Is there some messages that are over 14 days old?`)
-                })
+            await call.message.channel.bulkDelete(toDelete).catch(error => {
+                call.message.channel.send(`I was unable to bulk-delete some messages in this channel. Are they over 14 days old?`)
             })
-            
-            
+
+
             log.send(`${call.message.author.tag} has run the purge command to clear ${call.message.channel.toString()} of ${toDelete} messages. `)
 
-			
+
 
 
         } catch(error) {
@@ -49,4 +45,4 @@ module.exports = {
             console.log(error);
         }
     }
-}; 
+};
