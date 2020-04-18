@@ -16,6 +16,7 @@ const PAGED_SEND_DEFAULTS = {
 	allowFlip: true,
 	bypassMultiple: false,
 	joinWith: '\n',
+	dm: false, 
 	collectorOptions: {
 		filter: () => true,
 		time: 120000
