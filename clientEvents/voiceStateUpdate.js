@@ -1,4 +1,4 @@
-// This is only a template; fill in the proper arguments based on the event below.
+
 let {RichEmbed} = require('discord.js')
 module.exports = async (client, oldMember, newMember) => {
     let newStateChannel = newMember.voiceChannel;
